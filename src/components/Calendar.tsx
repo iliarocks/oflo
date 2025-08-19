@@ -8,7 +8,6 @@ import {
   format,
   isSameDay,
   isSameMonth,
-  parseISO,
   startOfMonth,
   startOfWeek,
 } from "date-fns";
@@ -19,16 +18,16 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 const SWIPE_THRESHOLD = 50;
 
 interface CalendarProps {
-  selectedDate: string;
-  onDateSelect: (date: string) => void;
+  selectedDate: Date;
+  onDateSelect: (date: Date) => void;
 }
 
 export default function Calendar({
   selectedDate,
   onDateSelect,
 }: CalendarProps) {
-  const selected = selectedDate ? parseISO(selectedDate) : null;
-  const [viewDate, setViewDate] = useState<Date>(selected ?? new Date());
+  const selected = selectedDate;
+  const [viewDate, setViewDate] = useState<Date>(selected);
 
   const weeks = useMemo(() => buildMonthMatrix(viewDate), [viewDate]);
 
@@ -42,21 +41,22 @@ export default function Calendar({
     });
 
   return (
-    <View className="gap-md rounded-sm bg-neutral-0 p-md">
+    <View className="gap-lg bg-neutral-5 p-md">
       <View className="flex-row justify-between">
-        <Text>{format(viewDate, "LLL yyyy").toLowerCase()}</Text>
+        <Text style="secondary">{format(viewDate, "LLL").toLowerCase()}</Text>
+        <Text style="secondary">{format(viewDate, "yyyy")}</Text>
       </View>
       <GestureDetector gesture={swipeGesture}>
-        <View>
+        <View className="gap-lg">
           {weeks.map((week, i) => (
             <View key={i} className="flex-row justify-between">
-              {week.map((date) => {
+              {week.map((date, k) => {
                 return (
                   <DayCell
-                    key={format(date, "yyyy-MM-dd")}
+                    key={k}
                     date={date}
                     isOutside={!isSameMonth(date, viewDate)}
-                    isSelected={!!selected && isSameDay(date, selected)}
+                    isSelected={isSameDay(date, selected)}
                     onPress={onDateSelect}
                   />
                 );
@@ -73,25 +73,28 @@ interface DayCellProps {
   date: Date;
   isOutside: boolean;
   isSelected: boolean;
-  onPress: (date: string) => void;
+  onPress: (date: Date) => void;
 }
 
 function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
-  const baseStyles = "rounded-sm items-center p-xs";
-  const invisibleStyles = isOutside ? "invisible" : "";
-  const activeStyles = isSelected ? "bg-primary-5" : "";
+  const baseStyles = "aspect-square justify-center items-center h-2xl";
+  const invisibleStyles = isOutside ? "opacity-30" : "";
+  const activeStyles = isSelected ? "bg-primary-0" : "";
 
   const handlePress = () => {
     HAPTIC_PATTERNS.select();
-    onPress(format(date, "yyyy-MM-dd"));
+    onPress(date);
   };
 
   return (
     <Pressable
+      disabled={isOutside}
       onPress={handlePress}
       className={`${baseStyles} ${invisibleStyles} ${activeStyles}`}
     >
-      <Text>{format(date, "d")}</Text>
+      <Text style={isSelected ? "primary" : "secondary"}>
+        {format(date, "d")}
+      </Text>
     </Pressable>
   );
 }

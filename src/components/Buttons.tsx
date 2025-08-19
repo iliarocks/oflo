@@ -4,14 +4,17 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ReactNode } from "react";
 import { Pressable } from "react-native";
 
+type Style = "primary" | "secondary";
+
 // --- Text Button ---
 
-interface TextButton {
+interface TextButtonProps {
   onPress: () => void;
   children?: ReactNode;
 }
-export function TextButton({ onPress, children }: TextButton) {
-  const styles = "items-center bg-primary-0 rounded-xs p-md";
+
+export function TextButton({ onPress, children }: TextButtonProps) {
+  const styles = "items-center p-md bg-primary-0";
 
   return (
     <Pressable className={styles} onPress={onPress}>
@@ -24,12 +27,13 @@ export function TextButton({ onPress, children }: TextButton) {
 
 type Icon = "add" | "sell" | "calendar-month" | "delete";
 
-interface IconButton {
+interface IconButtonProps {
   icon: Icon;
   onPress: () => void;
 }
-export function IconButton({ icon, onPress }: IconButton) {
-  const styles = "p-md rounded-xs bg-primary-0";
+
+export function IconButton({ icon, onPress }: IconButtonProps) {
+  const styles = "p-md bg-primary-0";
 
   return (
     <Pressable className={styles} onPress={onPress}>

@@ -1,8 +1,8 @@
 import { IconButton } from "@/components/Buttons";
+import View from "@/components/View";
 import { AuthContext } from "@/context/AuthContext";
 import { Redirect, Stack, useRouter } from "expo-router";
 import { useContext } from "react";
-import { View } from "react-native";
 
 export default function ProtectedLayout() {
   const router = useRouter();
@@ -11,22 +11,15 @@ export default function ProtectedLayout() {
   if (!user) return <Redirect href="/email-step" />;
 
   return (
-    <>
+    <View className="bg-neural-0" grow>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
-        <Stack.Screen name="inbox" />
-        <Stack.Screen name="today" />
-        <Stack.Screen name="upcoming" />
         <Stack.Screen name="settings" options={{ presentation: "modal" }} />
-        <Stack.Screen name="edit-todo" options={{ presentation: "modal" }} />
-        <Stack.Screen name="create-todo" options={{ presentation: "modal" }} />
+        <Stack.Screen name="create" options={{ presentation: "modal" }} />
       </Stack>
-      <View className="absolute bottom-lg right-xl">
-        <IconButton
-          icon="add"
-          onPress={() => router.navigate("/create-todo")}
-        />
+      <View className="absolute bottom-0 right-xl">
+        <IconButton icon="add" onPress={() => router.navigate("/create")} />
       </View>
-    </>
+    </View>
   );
 }
