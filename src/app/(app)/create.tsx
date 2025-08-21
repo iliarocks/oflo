@@ -5,16 +5,15 @@ import { TextInput, ListSelect } from "@/components/Inputs";
 import { useRouter } from "expo-router/build/hooks";
 import { useContext } from "react";
 import Calendar from "@/components/Calendar";
-import { TextButton } from "@/components/Buttons";
+import { StatusButton, TextButton } from "@/components/Buttons";
 import { TodoContext } from "@/context/TodoContext";
-import { Pressable } from "react-native";
 import { Option } from "@/utilities/types";
 import { startOfToday } from "date-fns";
+import { Repeat } from "@/entities/Repeat";
 
 export default function Create() {
   const router = useRouter();
-  const { label, date, repeat, setLabel, setDate, resetTodo } =
-    useContext(TodoContext);
+  const { label, date, repeat, setLabel, setDate, setRepeat, resetTodo } = useContext(TodoContext);
 
   const pushTodo = () => {
     console.log({ label, date, repeat });
@@ -42,13 +41,10 @@ export default function Create() {
             <Text style="secondary">label</Text>
             <TextInput value={label} onChangeText={setLabel} />
           </View>
-          <ListSelect
-            options={placeOptions}
-            selected={date}
-            onSelect={setDate}
-            unique
-          />
-          {date && <DateOptions date={date} onDateChange={setDate} />}
+          <ListSelect options={placeOptions} selected={date} onSelect={setDate} unique />
+          {date && (
+            <DateOptions repeat={repeat} date={date} setRepeat={setRepeat} onDateChange={setDate} />
+          )}
         </View>
       </View>
       <View className="px-xl">
@@ -59,29 +55,33 @@ export default function Create() {
 }
 
 type DateOptionsProps = {
+  repeat: Repeat | null;
   date: Date;
+  setRepeat: (repeat: Repeat | null) => void;
   onDateChange: (date: Date) => void;
 };
 
-function DateOptions({ date, onDateChange }: DateOptionsProps) {
+function DateOptions({ repeat, date, setRepeat, onDateChange }: DateOptionsProps) {
   const router = useRouter();
+
+  const openTime = () => {
+    router.navigate("/time-options");
+  };
+
+  const openRepeat = () => {
+    if (!repeat) setRepeat(new Repeat("todo"));
+    router.navigate("/repeat-options");
+  };
 
   return (
     <>
       <Calendar selectedDate={date} onDateSelect={onDateChange} />
-      <Pressable
-        className="bg-neutral-5 p-md"
-        onPress={() => router.navigate("/time-options")}
-      >
-        <Text>time</Text>
-      </Pressable>
-      <Pressable
-        className="flex-row justify-between bg-neutral-5 p-md"
-        onPress={() => router.navigate("/repeat-options")}
-      >
-        <Text>repeat</Text>
-        <Text>none</Text>
-      </Pressable>
+      <StatusButton status="none" onPress={openTime}>
+        time
+      </StatusButton>
+      <StatusButton status={repeat ? repeat.type : "none"} onPress={openRepeat}>
+        repeat
+      </StatusButton>
     </>
   );
 }

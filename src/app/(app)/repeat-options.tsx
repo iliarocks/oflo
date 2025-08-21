@@ -5,58 +5,35 @@ import Text from "@/components/Text";
 import View from "@/components/View";
 import { TodoContext } from "@/context/TodoContext";
 import { Repeat } from "@/entities/Repeat";
-import { Option, RepeatType, RepeatUnit } from "@/utilities/types";
+import { RepeatType, RepeatUnit } from "@/utilities/types";
 import { useRouter } from "expo-router";
 import _ from "lodash";
-import { useContext } from "react";
+import { useContext, ReactNode } from "react";
 
-const TYPE_OPTIONS: Option[] = [
-  { key: "none", value: null },
-  { key: "todo", value: "todo" },
-  { key: "calendar", value: "calendar" },
-];
-
-const UNIT_OPTIONS: Option[] = [
-  { key: "day", value: "day" },
-  { key: "week", value: "week" },
-  { key: "month", value: "month" },
-  { key: "year", value: "year" },
-];
-
-const WEEK_OPTIONS: Option[] = [
-  { key: "s", value: 0 },
-  { key: "m", value: 1 },
-  { key: "t", value: 2 },
-  { key: "w", value: 3 },
-  { key: "t", value: 4 },
-  { key: "f", value: 5 },
-  { key: "s", value: 6 },
-];
-
-const MONTH_OPTIONS: Option[] = _.times(31, (i) => ({
-  key: `${i + 1}`,
-  value: i,
-}));
+const OPTIONS = {
+  type: [
+    { key: "todo", value: "todo" },
+    { key: "calendar", value: "calendar" },
+    { key: "none", value: null },
+  ],
+  unit: ["day", "week", "month", "year"].map((u) => ({ key: u, value: u })),
+  week: "smtwtfs".split("").map((d, i) => ({ key: d, value: i })),
+  month: _.times(31, (i) => ({ key: `${i + 1}`, value: i })),
+};
 
 export default function RepeatOptions() {
   const router = useRouter();
   const { repeat, setRepeat } = useContext(TodoContext);
 
-  const onTypeChange = (type: RepeatType | null) => {
-    setRepeat(type ? new Repeat(type) : null);
+  const handlers = {
+    type: (type: RepeatType | null) => setRepeat(type ? new Repeat(type) : null),
+    multiple: (multiple: string) => setRepeat(repeat.withMultiple(Number(multiple))),
+    unit: (unit: RepeatUnit) => setRepeat(repeat.withOn([0]).withUnit(unit)),
+    on: (on: number[]) => setRepeat(repeat.withOn(on)),
   };
 
-  const onMultipleChange = (multiple: string) => {
-    setRepeat(repeat.withMultiple(Number(multiple)));
-  };
-
-  const onUnitChange = (unit: RepeatUnit) => {
-    setRepeat(repeat.withOn([0]).withUnit(unit));
-  };
-
-  const onOnChange = (on: number[]) => {
-    setRepeat(repeat.withOn(on));
-  };
+  const showCalendarOptions = repeat?.type === "calendar";
+  const showOnSelector = showCalendarOptions && ["week", "month"].includes(repeat.frequency.unit);
 
   return (
     <View className="gap-md bg-neutral-0" grow safe>
@@ -64,54 +41,55 @@ export default function RepeatOptions() {
         <TextButton onPress={router.back}>done</TextButton>
       </Header>
       <View className="gap-lg px-xl">
-        <View className="gap-sm">
-          <Text style="secondary">type</Text>
+        <Section title="type">
           <ListSelect
-            options={TYPE_OPTIONS}
+            options={OPTIONS.type}
             selected={repeat ? repeat.type : null}
-            onSelect={onTypeChange}
+            onSelect={handlers.type}
             unique
           />
-        </View>
+        </Section>
         {repeat && (
           <>
-            <View className="gap-sm">
-              <Text style="secondary">every</Text>
+            <Section title="every">
               <TextInput
                 value={repeat.frequency.multiple.toString()}
-                onChangeText={onMultipleChange}
+                onChangeText={handlers.multiple}
               />
               <ListSelect
-                options={UNIT_OPTIONS}
+                options={OPTIONS.unit}
                 selected={repeat.frequency.unit}
-                onSelect={onUnitChange}
+                onSelect={handlers.unit}
                 unique
               />
-            </View>
-            {repeat.type === "calendar" && (
-              <View className="gap-sm">
-                <Text style="secondary">on</Text>
-                {repeat.frequency.unit === "month" && (
-                  <ListSelect
-                    options={MONTH_OPTIONS}
-                    selected={repeat.frequency.on}
-                    onSelect={onOnChange}
-                    unique={false}
-                  />
-                )}
-                {repeat.frequency.unit === "week" && (
-                  <ListSelect
-                    options={WEEK_OPTIONS}
-                    selected={repeat.frequency.on}
-                    onSelect={onOnChange}
-                    unique={false}
-                  />
-                )}
-              </View>
+            </Section>
+            {showOnSelector && (
+              <Section title="on">
+                <ListSelect
+                  options={OPTIONS[repeat.frequency.unit as "week" | "month"]}
+                  selected={repeat.frequency.on ?? []}
+                  onSelect={handlers.on}
+                  unique={false}
+                />
+              </Section>
             )}
           </>
         )}
       </View>
+    </View>
+  );
+}
+
+type SectionProps = {
+  title: string;
+  children?: ReactNode;
+};
+
+function Section({ title, children }: SectionProps) {
+  return (
+    <View className="gap-sm">
+      <Text style="secondary">{title}</Text>
+      {children}
     </View>
   );
 }

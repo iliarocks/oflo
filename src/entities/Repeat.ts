@@ -39,4 +39,13 @@ export class Repeat {
         : this.frequency,
     });
   }
+
+  toString(): string {
+    const { unit, multiple, on } = this.frequency;
+    let str = `every ${multiple} ${unit}`;
+    if (on && on.length > 0) {
+      str += ` on ${on.join(",")}`;
+    }
+    return str;
+  }
 }
