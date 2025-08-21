@@ -1,5 +1,4 @@
 import Text from "@/components/Text";
-import { HAPTIC_PATTERNS } from "@/utilities/haptics";
 import {
   addMonths,
   eachDayOfInterval,
@@ -37,7 +36,6 @@ export default function Calendar({
     .onEnd((event) => {
       const direction = event.translationX > 0 ? -1 : 1;
       setViewDate((date) => addMonths(date, direction));
-      HAPTIC_PATTERNS.navigate();
     });
 
   return (
@@ -82,7 +80,6 @@ function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
   const activeStyles = isSelected ? "bg-primary-0" : "";
 
   const handlePress = () => {
-    HAPTIC_PATTERNS.select();
     onPress(date);
   };
 
@@ -90,7 +87,7 @@ function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
     <Pressable
       disabled={isOutside}
       onPress={handlePress}
-      className={`${baseStyles} ${invisibleStyles} ${activeStyles}`}
+      className={[baseStyles, invisibleStyles, activeStyles].join(" ")}
     >
       <Text style={isSelected ? "primary" : "secondary"}>
         {format(date, "d")}

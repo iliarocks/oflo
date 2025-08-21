@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
-import Link from "@/components/Link";
 import View from "@/components/View";
+import Text from "@/components/Text";
 import { useRouter } from "expo-router";
 
 export default function Index() {
@@ -18,15 +18,15 @@ export default function Index() {
     <View className="bg-neutral-0" grow>
       <Header items={headerItems} />
       <View className="flex-grow items-end justify-center gap-4xl px-xl">
-        <Link href="/inbox" size="xl">
+        <Text type="title" size="xl">
           inbox
-        </Link>
-        <Link href="/today" size="xl">
+        </Text>
+        <Text type="title" size="xl">
           today
-        </Link>
-        <Link href="/upcoming" size="xl">
+        </Text>
+        <Text type="title" size="xl">
           upcoming
-        </Link>
+        </Text>
       </View>
     </View>
   );

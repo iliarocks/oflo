@@ -1,39 +1,52 @@
-import { TextInput as DefaultTextInput, Pressable } from "react-native";
-import View from "@/components/View";
 import Text from "@/components/Text";
-import { useState } from "react";
+import View from "@/components/View";
+import { Option } from "@/utilities/types";
+import _ from "lodash";
+import { TextInput as DefaultTextInput, Pressable } from "react-native";
 
-// --- Toggle Select ---
+// --- List Select ---
 
-type ToggleOption = {
-  key: string;
-  value: any;
-};
+type ListSelectProps<T = any> =
+  | {
+      options: Option[];
+      selected: T[];
+      onSelect: (selected: T[]) => void;
+      unique: false;
+    }
+  | {
+      options: Option[];
+      selected: T;
+      onSelect: (selected: T) => void;
+      unique: true;
+    };
 
-interface ToggleSelectProps {
-  options: ToggleOption[];
-  onToggle: (value: any) => void;
-}
+export function ListSelect<T = any>(props: ListSelectProps) {
+  const { options, selected, onSelect, unique } = props;
 
-export function ToggleSelect({ options, onToggle }: ToggleSelectProps) {
-  const [selected, setSelected] = useState<any>(options[0].value);
+  const handlePress = (value: T) => {
+    if (unique) onSelect(value);
+    if (!unique) {
+      const newSelected = _.xor(selected, [value]);
+      if (newSelected.length > 0) onSelect(_.xor(selected, [value]));
+    }
+  };
 
-  const handleToggle = (value: any) => {
-    setSelected(value);
-    onToggle(value);
+  const isSelected = (value: T) => {
+    if (unique) return selected === value;
+    return selected.includes(value);
   };
 
   return (
     <View className="flex-row">
-      {options.map((option) => {
+      {options.map(({ key, value }, i) => {
+        const background = isSelected(value) ? "bg-primary-0" : "bg-neutral-5";
         return (
           <Pressable
-            className={`flex-1 items-center p-md ${selected === option.value ? "bg-primary-0" : "bg-neutral-5"}`}
-            onPress={() => handleToggle(option.value)}
+            className={`flex-1 items-center p-md ${background}`}
+            onPress={() => handlePress(value)}
+            key={i}
           >
-            <Text style={selected === option.value ? "primary" : "secondary"}>
-              {option.key}
-            </Text>
+            <Text>{key}</Text>
           </Pressable>
         );
       })}
@@ -48,7 +61,7 @@ interface TextInputProps {
   onChangeText: (text: string) => void;
 }
 
-export default function TextInput({ onChangeText, value }: TextInputProps) {
+export function TextInput({ onChangeText, value }: TextInputProps) {
   return (
     <DefaultTextInput
       className="bg-neutral-5 p-md font-roboto-mono-md text-body-sm leading-base text-text-0 antialiased"
