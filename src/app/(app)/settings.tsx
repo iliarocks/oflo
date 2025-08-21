@@ -5,6 +5,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { useUser } from "@/hooks/useUser";
 import { useContext } from "react";
 import { useRouter } from "expo-router";
+import Text from "@/components/Text";
 
 export default function Settings() {
   const context = useContext(AuthContext);
@@ -25,7 +26,10 @@ export default function Settings() {
 
   return (
     <View className="bg-neutral-0" grow safe>
-      <Header items={headerItems} />
+      <Header justify="between">
+        <Text>{user.email}</Text>
+        <TextButton onPress={router.back}>close</TextButton>
+      </Header>
       <View grow />
       <View className="px-xl">
         <TextButton onPress={context.signOut}>sign out</TextButton>

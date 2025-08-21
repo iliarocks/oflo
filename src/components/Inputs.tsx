@@ -37,12 +37,12 @@ export function ListSelect<T = any>(props: ListSelectProps) {
   };
 
   return (
-    <View className="flex-row">
+    <View className="flex-auto flex-row flex-wrap">
       {options.map(({ key, value }, i) => {
         const background = isSelected(value) ? "bg-primary-0" : "bg-neutral-5";
         return (
           <Pressable
-            className={`flex-1 items-center p-md ${background}`}
+            className={`grow items-center p-md ${background}`}
             onPress={() => handlePress(value)}
             key={i}
           >

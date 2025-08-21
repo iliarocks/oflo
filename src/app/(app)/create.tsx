@@ -26,11 +26,6 @@ export default function Create() {
     router.back();
   };
 
-  const headerItems = [
-    { type: "label", text: "create" } as const,
-    { type: "button", text: "cancel", onPress: close } as const,
-  ];
-
   const placeOptions: Option[] = [
     { key: "inbox", value: null },
     { key: "date", value: date || startOfToday },
@@ -39,7 +34,9 @@ export default function Create() {
   return (
     <View className="justify-between bg-neutral-0" grow safe>
       <View className="gap-md">
-        <Header items={headerItems} />
+        <Header>
+          <TextButton onPress={close}>cancel</TextButton>
+        </Header>
         <View className="gap-lg px-xl">
           <View className="gap-sm">
             <Text style="secondary">label</Text>
@@ -74,9 +71,16 @@ function DateOptions({ date, onDateChange }: DateOptionsProps) {
       <Calendar selectedDate={date} onDateSelect={onDateChange} />
       <Pressable
         className="bg-neutral-5 p-md"
+        onPress={() => router.navigate("/time-options")}
+      >
+        <Text>time</Text>
+      </Pressable>
+      <Pressable
+        className="flex-row justify-between bg-neutral-5 p-md"
         onPress={() => router.navigate("/repeat-options")}
       >
         <Text>repeat</Text>
+        <Text>none</Text>
       </Pressable>
     </>
   );

@@ -19,6 +19,10 @@ export default function ProtectedLayout() {
           <Stack.Screen name="settings" options={{ presentation: "modal" }} />
           <Stack.Screen name="create" options={{ presentation: "modal" }} />
           <Stack.Screen
+            name="time-options"
+            options={{ presentation: "containedModal" }}
+          />
+          <Stack.Screen
             name="repeat-options"
             options={{ presentation: "containedModal" }}
           />

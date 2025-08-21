@@ -1,38 +1,15 @@
-import Text from "@/components/Text";
-import { TextButton } from "./Buttons";
+import { ReactNode } from "react";
 import { View } from "react-native";
 
-interface Button {
-  type: "button";
-  text: string;
-  onPress: () => void;
-}
+type HeaderProps = {
+  justify?: "end" | "between";
+  children?: ReactNode;
+};
 
-interface Label {
-  type: "label";
-  text: string;
-}
-
-interface HeaderProps {
-  items: (Button | Label)[];
-}
-
-export default function Header({ items }: HeaderProps) {
-  const justify = items.length === 1 ? "justify-end" : "justify-between";
-
+export default function Header({ justify = "end", children }: HeaderProps) {
   return (
-    <View className={`flex-row items-center px-xl ${justify}`}>
-      {items.map(ItemConstructor)}
+    <View className={`flex-row items-center px-xl justify-${justify}`}>
+      {children}
     </View>
-  );
-}
-
-function ItemConstructor(item: Label | Button, key: number) {
-  if (item.type === "label") return <Text key={key}>{item.text}</Text>;
-
-  return (
-    <TextButton onPress={item.onPress} key={key}>
-      {item.text}
-    </TextButton>
   );
 }

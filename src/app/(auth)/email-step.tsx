@@ -1,7 +1,7 @@
 import View from "@/components/View";
 import Text from "@/components/Text";
 import { TextButton } from "@/components/Buttons";
-import TextInput from "@/components/Inputs";
+import { TextInput } from "@/components/Inputs";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "expo-router";
 import { useContext } from "react";
