@@ -4,7 +4,7 @@ import _ from "lodash";
 import { TextInput as DefaultTextInput } from "react-native";
 import { ToggleButton } from "./Buttons";
 
-// --- Text Input ---
+// ——— Text Input ———
 
 interface TextInputProps {
   value: string;
@@ -21,21 +21,17 @@ export function TextInput({ onChangeText, value }: TextInputProps) {
   );
 }
 
-// --- List Select ---
+// ——— List Select ———
 
-type ListSelectProps<T = any> =
-  | {
-      options: Option[];
-      selected: T[];
-      onSelect: (selected: T[]) => void;
-      unique: false;
-    }
-  | {
-      options: Option[];
-      selected: T;
-      onSelect: (selected: T) => void;
-      unique: true;
-    };
+type ListSelectBase<T> = {
+  options: Option[];
+};
+
+type ListSelectProps<T = any> = ListSelectBase<T> &
+  (
+    | { unique: false; selected: T[]; onSelect: (selected: T[]) => void }
+    | { unique: true; selected: T; onSelect: (selected: T) => void }
+  );
 
 export function ListSelect<T = any>(props: ListSelectProps) {
   const { options, selected, onSelect, unique } = props;

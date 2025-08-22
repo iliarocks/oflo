@@ -53,7 +53,7 @@ export default function RepeatOptions() {
           <>
             <Section title="every">
               <TextInput
-                value={repeat.frequency.multiple.toString()}
+                value={String(repeat.frequency.multiple)}
                 onChangeText={handlers.multiple}
               />
               <ListSelect
