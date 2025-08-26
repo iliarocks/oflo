@@ -8,32 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		231644C0CDDA40493B5691AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828E64B53BBF452D0FB50842 /* ExpoModulesProvider.swift */; };
-		272F689BB65F46DA8AE8E61D /* RobotoMono_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C5A4093E270474EA44FD0F9 /* RobotoMono_700Bold.ttf */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		B1A000EC8D6D41DBAFBFD6AF /* RobotoMono_500Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC806583C540E0A32532E0 /* RobotoMono_500Medium.ttf */; };
-		B4C6B132C514B287F54246A5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DE74D32E667652845EDBCEFE /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		EE4249000B5786309A3D145C /* libPods-oflo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F08F9A1F377C90C68BC3EB /* libPods-oflo.a */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
+		244E73FB62CD4AB6B731F42C /* RobotoMono_500Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 183B8BF5C8834CB39194041A /* RobotoMono_500Medium.ttf */; };
+		C458E35F6E4047A28AC4ADEC /* RobotoMono_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DF1FD56AE694D8CA47BDDC3 /* RobotoMono_700Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0187560E0F291C92721C8260 /* Pods-oflo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oflo.release.xcconfig"; path = "Target Support Files/Pods-oflo/Pods-oflo.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* oflo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = oflo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = oflo/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = oflo/Info.plist; sourceTree = "<group>"; };
-		37F08F9A1F377C90C68BC3EB /* libPods-oflo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-oflo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4ECC806583C540E0A32532E0 /* RobotoMono_500Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = RobotoMono_500Medium.ttf; path = "../node_modules/@expo-google-fonts/roboto-mono/500Medium/RobotoMono_500Medium.ttf"; sourceTree = "<group>"; };
-		5C5A4093E270474EA44FD0F9 /* RobotoMono_700Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = RobotoMono_700Bold.ttf; path = "../node_modules/@expo-google-fonts/roboto-mono/700Bold/RobotoMono_700Bold.ttf"; sourceTree = "<group>"; };
-		7D9FAFDAE2A416F9729C9CD2 /* Pods-oflo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oflo.debug.xcconfig"; path = "Target Support Files/Pods-oflo/Pods-oflo.debug.xcconfig"; sourceTree = "<group>"; };
-		828E64B53BBF452D0FB50842 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-oflo/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = oflo/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		DE74D32E667652845EDBCEFE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = oflo/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = oflo/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* oflo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "oflo-Bridging-Header.h"; path = "oflo/oflo-Bridging-Header.h"; sourceTree = "<group>"; };
+		183B8BF5C8834CB39194041A /* RobotoMono_500Medium.ttf */ = {isa = PBXFileReference; name = "RobotoMono_500Medium.ttf"; path = "../node_modules/@expo-google-fonts/roboto-mono/500Medium/RobotoMono_500Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7DF1FD56AE694D8CA47BDDC3 /* RobotoMono_700Bold.ttf */ = {isa = PBXFileReference; name = "RobotoMono_700Bold.ttf"; path = "../node_modules/@expo-google-fonts/roboto-mono/700Bold/RobotoMono_700Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,23 +33,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE4249000B5786309A3D145C /* libPods-oflo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0FFDFE145596C1CB2C6804C5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7D9FAFDAE2A416F9729C9CD2 /* Pods-oflo.debug.xcconfig */,
-				0187560E0F291C92721C8260 /* Pods-oflo.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* oflo */ = {
 			isa = PBXGroup;
 			children = (
@@ -67,7 +48,6 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				DE74D32E667652845EDBCEFE /* PrivacyInfo.xcprivacy */,
 			);
 			name = oflo;
 			sourceTree = "<group>";
@@ -76,27 +56,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				37F08F9A1F377C90C68BC3EB /* libPods-oflo.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		31F4A3BC51CD21D60E8795B3 /* oflo */ = {
-			isa = PBXGroup;
-			children = (
-				828E64B53BBF452D0FB50842 /* ExpoModulesProvider.swift */,
-			);
-			name = oflo;
-			sourceTree = "<group>";
-		};
-		4CAA8E543F79461CA3577C08 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				4ECC806583C540E0A32532E0 /* RobotoMono_500Medium.ttf */,
-				5C5A4093E270474EA44FD0F9 /* RobotoMono_700Bold.ttf */,
-			);
-			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -113,9 +74,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				4CAA8E543F79461CA3577C08 /* Resources */,
-				0FFDFE145596C1CB2C6804C5 /* Pods */,
-				B9D13BA6DEC637D63FB5F4E7 /* ExpoModulesProviders */,
+				01F9C3C911D246CA903E0AB9 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -130,14 +89,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B9D13BA6DEC637D63FB5F4E7 /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				31F4A3BC51CD21D60E8795B3 /* oflo */,
-			);
-			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +98,16 @@
 			path = oflo/Supporting;
 			sourceTree = "<group>";
 		};
+		01F9C3C911D246CA903E0AB9 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				183B8BF5C8834CB39194041A /* RobotoMono_500Medium.ttf */,
+				7DF1FD56AE694D8CA47BDDC3 /* RobotoMono_700Bold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,13 +116,11 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "oflo" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				ACBB928499B9E9937F87E5F1 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				C276574BD848906C5319BBDF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -211,9 +170,8 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				B1A000EC8D6D41DBAFBFD6AF /* RobotoMono_500Medium.ttf in Resources */,
-				272F689BB65F46DA8AE8E61D /* RobotoMono_700Bold.ttf in Resources */,
-				B4C6B132C514B287F54246A5 /* PrivacyInfo.xcprivacy in Resources */,
+				244E73FB62CD4AB6B731F42C /* RobotoMono_500Medium.ttf in Resources */,
+				C458E35F6E4047A28AC4ADEC /* RobotoMono_700Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,73 +223,18 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-oflo/Pods-oflo-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/ExpoConstants_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoFileSystem/ExpoFileSystem_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoSystemUI/ExpoSystemUI_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly/RCT-Folly_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RNCAsyncStorage/RNCAsyncStorage_resources.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RNSVG/RNSVGFilters.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/React-Core_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact/React-cxxreact_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage/SDWebImage.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/boost/boost_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/glog/glog_privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXUpdates/EXUpdates.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoConstants_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoFileSystem_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoSystemUI_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCT-Folly_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNCAsyncStorage_resources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNSVGFilters.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-Core_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-cxxreact_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SDWebImage.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/boost_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/glog_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXUpdates.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oflo/Pods-oflo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ACBB928499B9E9937F87E5F1 /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-oflo/expo-configure-project.sh\"\n";
-		};
-		C276574BD848906C5319BBDF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oflo/Pods-oflo-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oflo/Pods-oflo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -342,7 +245,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				231644C0CDDA40493B5691AB /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,11 +253,9 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D9FAFDAE2A416F9729C9CD2 /* Pods-oflo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = oflo/oflo.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -374,24 +274,22 @@
 					"-ObjC",
 					"-lc++",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.iliarocks.oflo;
-				PRODUCT_NAME = oflo;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.iliarocks.oflo";
+				PRODUCT_NAME = "oflo";
 				SWIFT_OBJC_BRIDGING_HEADER = "oflo/oflo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				CODE_SIGN_ENTITLEMENTS = oflo/oflo.entitlements;
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0187560E0F291C92721C8260 /* Pods-oflo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = oflo/oflo.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = oflo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -405,13 +303,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.iliarocks.oflo;
-				PRODUCT_NAME = oflo;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.iliarocks.oflo";
+				PRODUCT_NAME = "oflo";
 				SWIFT_OBJC_BRIDGING_HEADER = "oflo/oflo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				CODE_SIGN_ENTITLEMENTS = oflo/oflo.entitlements;
 			};
 			name = Release;
 		};
@@ -467,17 +365,10 @@
 					/usr/lib/swift,
 					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
+				LIBRARY_SEARCH_PATHS = "\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
-				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
-				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -526,15 +417,9 @@
 					/usr/lib/swift,
 					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
+				LIBRARY_SEARCH_PATHS = "\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
-				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
-				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
