@@ -11,8 +11,8 @@
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
-		6E728AA855144C4CB356E399 /* RobotoMono_500Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E7F3000EC64AA7A58EA7F1 /* RobotoMono_500Medium.ttf */; };
-		6D83AC6A7B014D4DBBF041A4 /* RobotoMono_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EF58503897B48E8A0950BCD /* RobotoMono_700Bold.ttf */; };
+		8C2A4FB02F894ACAA0E002CB /* RobotoMono_500Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 281A26F87F3F4B229CF21326 /* RobotoMono_500Medium.ttf */; };
+		1F701CD493944869B9B58C49 /* RobotoMono_700Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC50BF325FC64509A6D41A3A /* RobotoMono_700Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +24,8 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = oflo/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* oflo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "oflo-Bridging-Header.h"; path = "oflo/oflo-Bridging-Header.h"; sourceTree = "<group>"; };
-		22E7F3000EC64AA7A58EA7F1 /* RobotoMono_500Medium.ttf */ = {isa = PBXFileReference; name = "RobotoMono_500Medium.ttf"; path = "../node_modules/@expo-google-fonts/roboto-mono/500Medium/RobotoMono_500Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2EF58503897B48E8A0950BCD /* RobotoMono_700Bold.ttf */ = {isa = PBXFileReference; name = "RobotoMono_700Bold.ttf"; path = "../node_modules/@expo-google-fonts/roboto-mono/700Bold/RobotoMono_700Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		281A26F87F3F4B229CF21326 /* RobotoMono_500Medium.ttf */ = {isa = PBXFileReference; name = "RobotoMono_500Medium.ttf"; path = "../node_modules/@expo-google-fonts/roboto-mono/500Medium/RobotoMono_500Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AC50BF325FC64509A6D41A3A /* RobotoMono_700Bold.ttf */ = {isa = PBXFileReference; name = "RobotoMono_700Bold.ttf"; path = "../node_modules/@expo-google-fonts/roboto-mono/700Bold/RobotoMono_700Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				474FD3C9883B4D8088479F4B /* Resources */,
+				286E726250B94F18AC08F6CF /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -98,11 +98,11 @@
 			path = oflo/Supporting;
 			sourceTree = "<group>";
 		};
-		474FD3C9883B4D8088479F4B /* Resources */ = {
+		286E726250B94F18AC08F6CF /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-				22E7F3000EC64AA7A58EA7F1 /* RobotoMono_500Medium.ttf */,
-				2EF58503897B48E8A0950BCD /* RobotoMono_700Bold.ttf */,
+				281A26F87F3F4B229CF21326 /* RobotoMono_500Medium.ttf */,
+				AC50BF325FC64509A6D41A3A /* RobotoMono_700Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -170,8 +170,8 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				6E728AA855144C4CB356E399 /* RobotoMono_500Medium.ttf in Resources */,
-				6D83AC6A7B014D4DBBF041A4 /* RobotoMono_700Bold.ttf in Resources */,
+				8C2A4FB02F894ACAA0E002CB /* RobotoMono_500Medium.ttf in Resources */,
+				1F701CD493944869B9B58C49 /* RobotoMono_700Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
