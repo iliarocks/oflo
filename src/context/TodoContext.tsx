@@ -29,11 +29,12 @@ export function TodoProvider({ children }: PropsWithChildren) {
   const [label, setLabel] = useState<string>("");
   const [date, setDate] = useState<Date | null>(null);
   const [repeat, setRepeat] = useState<Repeat | null>(null);
-  const [time, setTime] = useState<string | null>(null)
+  const [time, setTime] = useState<string | null>(null);
 
   const resetTodo = () => {
     setLabel("");
     setDate(null);
+    setTime(null);
     setRepeat(null);
   };
 

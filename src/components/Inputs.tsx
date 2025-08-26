@@ -3,9 +3,8 @@ import { Option } from "@/utilities/types";
 import _ from "lodash";
 import { TextInput as DefaultTextInput } from "react-native";
 import { ToggleButton } from "./Buttons";
-import { format } from "date-fns";
 import Text from "@/components/Text";
-import RNDateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 // ——— Text Input ———
 
@@ -26,11 +25,11 @@ export function TextInput({ onChangeText, value }: TextInputProps) {
 
 // ——— List Select ———
 
-type ListSelectBase<T> = {
+type ListSelectBase = {
   options: Option[];
 };
 
-type ListSelectProps<T = any> = ListSelectBase<T> &
+type ListSelectProps<T = any> = ListSelectBase &
   (
     | { unique: false; selected: T[]; onSelect: (selected: T[]) => void }
     | { unique: true; selected: T; onSelect: (selected: T) => void }
@@ -67,19 +66,15 @@ export function ListSelect<T = any>(props: ListSelectProps) {
 
 type TimeInputProps = {
   label: string;
+  value: Date;
+  onChange: ((event: DateTimePickerEvent, date?: Date) => void) | undefined;
 };
 
-export function TimeInput({ label }: TimeInputProps) {
-  const onChange = (event: DateTimePickerEvent, date?: Date) => {
-    if (date) {
-      console.log(format(date, "HH:mm"));
-    }
-  };
-
+export function TimeInput({ label, value, onChange }: TimeInputProps) {
   return (
-    <View className="bg-neutral-5 pl-md flex-row items-center justify-between">
+    <View className="flex-row items-center justify-between bg-neutral-5 pl-md">
       <Text>{label}</Text>
-      <RNDateTimePicker mode="time" value={new Date()} onChange={onChange} display="inline" />
+      <DateTimePicker mode="time" value={value} onChange={onChange} display="inline" />
     </View>
   );
 }

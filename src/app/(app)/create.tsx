@@ -13,10 +13,11 @@ import { Repeat } from "@/entities/Repeat";
 
 export default function Create() {
   const router = useRouter();
-  const { label, date, repeat, setLabel, setDate, setRepeat, resetTodo } = useContext(TodoContext);
+  const { label, date, time, repeat, setLabel, setDate, setRepeat, resetTodo } =
+    useContext(TodoContext);
 
   const pushTodo = () => {
-    console.log({ label, date, repeat });
+    console.log({ label, date, time, repeat });
     close();
   };
 
