@@ -1,14 +1,14 @@
 import { TextButton } from "@/components/Buttons";
+import FormSection from "@/components/FormSection";
 import Header from "@/components/Header";
 import { ListSelect, TextInput } from "@/components/Inputs";
-import Text from "@/components/Text";
 import View from "@/components/View";
 import { TodoContext } from "@/context/TodoContext";
 import { Repeat } from "@/entities/Repeat";
 import { RepeatType, RepeatUnit } from "@/utilities/types";
 import { useRouter } from "expo-router";
 import _ from "lodash";
-import { useContext, ReactNode } from "react";
+import { useContext } from "react";
 
 const OPTIONS = {
   type: [
@@ -41,17 +41,17 @@ export default function RepeatOptions() {
         <TextButton onPress={router.back}>done</TextButton>
       </Header>
       <View className="gap-lg px-xl">
-        <Section title="type">
+        <FormSection title="type">
           <ListSelect
             options={OPTIONS.type}
             selected={repeat ? repeat.type : null}
             onSelect={handlers.type}
             unique
           />
-        </Section>
+        </FormSection>
         {repeat && (
           <>
-            <Section title="every">
+            <FormSection title="every">
               <TextInput
                 value={String(repeat.frequency.multiple)}
                 onChangeText={handlers.multiple}
@@ -62,34 +62,20 @@ export default function RepeatOptions() {
                 onSelect={handlers.unit}
                 unique
               />
-            </Section>
+            </FormSection>
             {showOnSelector && (
-              <Section title="on">
+              <FormSection title="on">
                 <ListSelect
                   options={OPTIONS[repeat.frequency.unit as "week" | "month"]}
                   selected={repeat.frequency.on ?? []}
                   onSelect={handlers.on}
                   unique={false}
                 />
-              </Section>
+              </FormSection>
             )}
           </>
         )}
       </View>
-    </View>
-  );
-}
-
-type SectionProps = {
-  title: string;
-  children?: ReactNode;
-};
-
-function Section({ title, children }: SectionProps) {
-  return (
-    <View className="gap-sm">
-      <Text style="secondary">{title}</Text>
-      {children}
     </View>
   );
 }

@@ -17,6 +17,6 @@ export default {
       lineHeight: LINE_HEIGHT,
       spacing: SPACING,
     },
-    plugins: [],
   },
+  plugins: [],
 };

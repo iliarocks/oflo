@@ -3,6 +3,9 @@ import { Option } from "@/utilities/types";
 import _ from "lodash";
 import { TextInput as DefaultTextInput } from "react-native";
 import { ToggleButton } from "./Buttons";
+import { format } from "date-fns";
+import Text from "@/components/Text";
+import RNDateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 // ——— Text Input ———
 
@@ -56,6 +59,27 @@ export function ListSelect<T = any>(props: ListSelectProps) {
           </ToggleButton>
         );
       })}
+    </View>
+  );
+}
+
+// ——— Time Input ———
+
+type TimeInputProps = {
+  label: string;
+};
+
+export function TimeInput({ label }: TimeInputProps) {
+  const onChange = (event: DateTimePickerEvent, date?: Date) => {
+    if (date) {
+      console.log(format(date, "HH:mm"));
+    }
+  };
+
+  return (
+    <View className="bg-neutral-5 pl-md flex-row items-center justify-between">
+      <Text>{label}</Text>
+      <RNDateTimePicker mode="time" value={new Date()} onChange={onChange} display="inline" />
     </View>
   );
 }

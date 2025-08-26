@@ -14,7 +14,7 @@ export default function View({
   className = "",
   children,
 }: ScreenViewProps) {
-  const conditionalStyles = grow ? "flex-1" : "";
+  const conditionalStyles = grow ? "flex-1" : "flex";
   const styles = [conditionalStyles, className].join(" ");
 
   if (safe) return <SafeAreaView className={styles}>{children}</SafeAreaView>;

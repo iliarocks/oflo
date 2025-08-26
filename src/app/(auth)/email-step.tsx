@@ -16,7 +16,7 @@ export default function EmailStep() {
   };
 
   return (
-    <View className="px-xl">
+    <View className="bg-neutral-0 px-xl" grow safe>
       <View className="flex-1 justify-center gap-lg">
         <Text>enter your email to begin</Text>
         <TextInput value={context.email} onChangeText={context.setEmail} />

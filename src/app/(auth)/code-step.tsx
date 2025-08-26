@@ -11,7 +11,7 @@ export default function CodeStep() {
   const router = useRouter();
 
   return (
-    <View className="px-xl">
+    <View className="bg-neutral-0 px-xl" grow safe>
       <View className="flex-1 justify-center gap-lg">
         <Text>copy the code sent to your email</Text>
         <TextInput value={context.code} onChangeText={context.setCode} />

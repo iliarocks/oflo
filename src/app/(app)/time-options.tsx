@@ -1,25 +1,35 @@
 import { TextButton } from "@/components/Buttons";
+import FormSection from "@/components/FormSection";
 import Header from "@/components/Header";
+import { ListSelect, TimeInput } from "@/components/Inputs";
 import View from "@/components/View";
-import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
-import { format } from "date-fns";
+import {useContext} from "react";
+import {TodoContext} from "@/context/TodoContext";
+
+const OPTIONS = {
+  type: [
+    { key: "interval", value: true },
+    { key: "none", value: null },
+  ],
+};
 
 export default function TimeOptions() {
   const router = useRouter();
-
-  const onChange = (event: DateTimePickerEvent, date?: Date) => {
-    if (date) {
-      console.log(format(date, "HH:mm"));
-    }
-  };
+  const {time, setTime} = useContext(TodoContext);
 
   return (
-    <View className="bg-neutral-0" grow safe>
+    <View className="gap-md bg-neutral-0" grow safe>
       <Header>
         <TextButton onPress={router.back}>done</TextButton>
       </Header>
-      <DateTimePicker mode="time" value={new Date()} onChange={onChange} />
+      <View className="gap-lg px-xl">
+        <FormSection title="type">
+          <ListSelect options={OPTIONS.type} selected={null} onSelect={() => {}} unique />
+        </FormSection>
+        <TimeInput label="start"/>
+        <TimeInput label="end"/>
+      </View>
     </View>
   );
 }
