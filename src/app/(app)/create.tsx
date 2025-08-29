@@ -10,14 +10,52 @@ import { TodoContext } from "@/context/TodoContext";
 import { Option } from "@/utilities/types";
 import { startOfToday } from "date-fns";
 import { Repeat } from "@/entities/Repeat";
+import { db, id } from "@/utilities/database";
+import { useUser } from "@/hooks/useUser";
+import { generateKeyBetween } from "fractional-indexing";
+import _ from "lodash";
 
 export default function Create() {
   const router = useRouter();
   const { label, date, time, repeat, setLabel, setDate, setRepeat, resetTodo } =
     useContext(TodoContext);
+  const user = useUser();
 
-  const pushTodo = () => {
-    console.log({ label, date, time, repeat });
+  const pushTodo = async () => {
+    const { data } = await db.queryOnce({
+      todos: {
+        $: {
+          where: {
+            user: user.id,
+          },
+        },
+      },
+    });
+
+    const first = _.orderBy(data.todos, ["position"], ["asc"])[0]?.position;
+
+    if (!repeat) {
+      const todoId = id();
+      const todo = {
+        label: label,
+        date: date,
+        time: time,
+        complete: false,
+        position: generateKeyBetween(null, first);
+      };
+      db.transact(db.tx.todos[todoId].update(todo).link({ user: user.id }));
+    } else {
+      const templateId = id();
+      const template = {
+        label: label,
+        time: time,
+        date: date,
+        repeat: repeat,
+      };
+      console.log(template);
+      await db.transact(db.tx.templates[templateId].create(template).link({ user: user.id }));
+      console.log(JSON.stringify(e, null, 2));
+    }
     close();
   };
 

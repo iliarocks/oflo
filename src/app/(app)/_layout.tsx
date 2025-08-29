@@ -16,16 +16,11 @@ export default function ProtectedLayout() {
       <View className="bg-neural-0" grow>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
+          <Stack.Screen name="inbox" />
           <Stack.Screen name="settings" options={{ presentation: "modal" }} />
           <Stack.Screen name="create" options={{ presentation: "modal" }} />
-          <Stack.Screen
-            name="time-options"
-            options={{ presentation: "containedModal" }}
-          />
-          <Stack.Screen
-            name="repeat-options"
-            options={{ presentation: "containedModal" }}
-          />
+          <Stack.Screen name="time-options" options={{ presentation: "containedModal" }} />
+          <Stack.Screen name="repeat-options" options={{ presentation: "containedModal" }} />
         </Stack>
         <View className="absolute bottom-0 right-xl">
           <IconButton icon="add" onPress={() => router.navigate("/create")} />
