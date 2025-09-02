@@ -5,4 +5,5 @@ const config = getDefaultConfig(__dirname);
 
 module.exports = withNativeWind(config, {
   input: "./src/assets/global.css",
+  inlineRem: false,
 });

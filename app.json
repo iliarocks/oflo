@@ -7,17 +7,15 @@
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#353839",
-
     "icon": "./src/assets/images/icon.png",
-
     "newArchEnabled": true,
-    "experiments": { "typedRoutes": true },
-
+    "experiments": {
+      "typedRoutes": true
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.iliarocks.oflo"
     },
-
     "plugins": [
       "expo-router",
       [
@@ -39,10 +37,14 @@
         }
       ]
     ],
-
     "extra": {
       "router": {},
-      "eas": { "projectId": "0ec6069c-c068-4a8d-8053-2c8c28449c72" }
+      "eas": {
+        "projectId": "0ec6069c-c068-4a8d-8053-2c8c28449c72"
+      }
+    },
+    "android": {
+      "package": "com.iliarocks.oflo"
     }
   }
 }

@@ -6,6 +6,7 @@ interface ScreenViewProps {
   safe?: boolean;
   className?: string;
   children?: ReactNode;
+  style?: any;
 }
 
 export default function View({
@@ -13,11 +14,12 @@ export default function View({
   safe = false,
   className = "",
   children,
+  style,
 }: ScreenViewProps) {
-  const conditionalStyles = grow ? "flex-1" : "flex";
-  const styles = [conditionalStyles, className].join(" ");
+  const conditionalStyles = grow ? "flex-1" : "";
+  const styles = `${conditionalStyles} ${className}`.trim();
 
-  if (safe) return <SafeAreaView className={styles}>{children}</SafeAreaView>;
+  if (safe) return <SafeAreaView className={styles} style={style}>{children}</SafeAreaView>;
 
-  return <DefaultView className={styles}>{children}</DefaultView>;
+  return <DefaultView className={styles} style={style}>{children}</DefaultView>;
 }
