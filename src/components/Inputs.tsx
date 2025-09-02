@@ -5,7 +5,6 @@ import { TextInput as RNTextInput } from "react-native";
 import { ToggleButton } from "./Buttons";
 import Text from "@/components/Text";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
-import { cssInterop } from "nativewind";
 
 // ——— Text Input ———
 
@@ -23,11 +22,6 @@ export function TextInput({ onChangeText, value }: TextInputProps) {
     />
   );
 }
-
-// This enables className on TextInput
-cssInterop(TextInput, {
-  className: "style",
-});
 
 // ——— List Select ———
 
