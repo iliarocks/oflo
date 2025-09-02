@@ -19,15 +19,12 @@ export default function Todo({ todo, onDrag, dragActive }: TodoProps) {
   const styles = dragActive ? [baseStyles, dragStyles].join(" ") : baseStyles;
 
   const handleCheck = () => {
-    db.transact(db.tx.todos[todo.id].delete());
+    db.transact(db.tx.todos[todo.id].update({ completed: !todo.completed }));
   };
 
-  const handlePress = () => {
-    console.log("pressed");
-  };
+  const handlePress = () => {};
 
   const handleLongPress = () => {
-    console.log("log pressed");
     onDrag();
   };
 

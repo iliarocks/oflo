@@ -11,14 +11,14 @@ const _schema = i.schema({
     }),
     todos: i.entity({
       label: i.string().indexed(),
-      date: i.any().optional(),
-      time: i.any().optional(),
+      date: i.any().optional().indexed(),
+      time: i.any().optional().indexed(),
       completed: i.boolean(),
       position: i.string(),
     }),
     templates: i.entity({
       label: i.string().indexed(),
-      date: i.any().optional(),
+      date: i.any().optional().indexed(),
       time: i.any().optional(),
       repeat: i.json().optional(),
     }),

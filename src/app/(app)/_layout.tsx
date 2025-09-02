@@ -14,9 +14,16 @@ export default function ProtectedLayout() {
   return (
     <TodoProvider>
       <View className="bg-neural-0" grow>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            gestureEnabled: true,
+            fullScreenGestureEnabled: true,
+          }}
+        >
           <Stack.Screen name="index" />
           <Stack.Screen name="inbox" />
+          <Stack.Screen name="today" />
           <Stack.Screen name="settings" options={{ presentation: "modal" }} />
           <Stack.Screen name="create" options={{ presentation: "modal" }} />
           <Stack.Screen name="time-options" options={{ presentation: "containedModal" }} />

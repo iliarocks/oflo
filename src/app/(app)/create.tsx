@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { format } from "date-fns";
 import View from "@/components/View";
 import Text from "@/components/Text";
 import { TextInput, ListSelect } from "@/components/Inputs";
@@ -32,29 +33,27 @@ export default function Create() {
       },
     });
 
-    const first = _.orderBy(data.todos, ["position"], ["asc"])[0]?.position;
+    const first = _.orderBy(data.todos, ["position"], ["asc"])[0]?.position ?? null;
 
     if (!repeat) {
       const todoId = id();
       const todo = {
         label: label,
-        date: date,
+        date: date ? format(date, "yyyy-MM-dd") : date,
         time: time,
-        complete: false,
-        position: generateKeyBetween(null, first);
+        completed: false,
+        position: generateKeyBetween(null, first),
       };
-      db.transact(db.tx.todos[todoId].update(todo).link({ user: user.id }));
+      db.transact(db.tx.todos[todoId].create(todo).link({ user: user.id }));
     } else {
       const templateId = id();
       const template = {
         label: label,
         time: time,
-        date: date,
+        date: date ? format(date, "yyyy-MM-dd") : date,
         repeat: repeat,
       };
-      console.log(template);
       await db.transact(db.tx.templates[templateId].create(template).link({ user: user.id }));
-      console.log(JSON.stringify(e, null, 2));
     }
     close();
   };
@@ -78,7 +77,7 @@ export default function Create() {
         <View className="gap-lg px-xl">
           <View className="gap-sm">
             <Text style="secondary">label</Text>
-            <TextInput value={label} onChangeText={setLabel} />
+            <TextInput value={label ?? ""} onChangeText={setLabel} />
           </View>
           <ListSelect options={placeOptions} selected={date} onSelect={setDate} unique />
           {date && (

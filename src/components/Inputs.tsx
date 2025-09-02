@@ -1,10 +1,11 @@
 import View from "@/components/View";
 import { Option } from "@/utilities/types";
 import _ from "lodash";
-import { TextInput as DefaultTextInput } from "react-native";
+import { TextInput as RNTextInput } from "react-native";
 import { ToggleButton } from "./Buttons";
 import Text from "@/components/Text";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import { cssInterop } from "nativewind";
 
 // ——— Text Input ———
 
@@ -15,13 +16,18 @@ interface TextInputProps {
 
 export function TextInput({ onChangeText, value }: TextInputProps) {
   return (
-    <DefaultTextInput
+    <RNTextInput
       value={value}
       onChangeText={(text) => onChangeText(text)}
       className="bg-neutral-5 p-md font-roboto-mono-md text-body-sm leading-base text-text-0 antialiased"
     />
   );
 }
+
+// This enables className on TextInput
+cssInterop(TextInput, {
+  className: "style",
+});
 
 // ——— List Select ———
 

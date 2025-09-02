@@ -19,9 +19,11 @@ export default function Index() {
             inbox
           </Text>
         </Link>
-        <Text type="title" size="xl">
-          today
-        </Text>
+        <Link href="/today">
+          <Text type="title" size="xl">
+            today
+          </Text>
+        </Link>
         <Text type="title" size="xl">
           upcoming
         </Text>
