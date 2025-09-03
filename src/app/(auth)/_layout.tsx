@@ -5,11 +5,9 @@ import { View, Text } from "react-native";
 
 export default function AuthLayout() {
   const { user } = useContext(AuthContext);
-  console.log("AuthLayout - user:", user);
 
   // Handle loading state when user is undefined
   if (user === undefined) {
-    console.log("AuthLayout - user is undefined, showing loading");
     return (
       <View style={{ flex: 1, backgroundColor: '#353839', justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ color: 'white' }}>Loading...</Text>
@@ -19,11 +17,8 @@ export default function AuthLayout() {
   
   // Redirect to app if logged in
   if (user) {
-    console.log("AuthLayout - user exists, redirecting to app");
     return <Redirect href="/" />;
   }
-
-  console.log("AuthLayout - showing auth screens");
 
   return (
     <Stack screenOptions={{ headerShown: false }}>

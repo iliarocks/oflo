@@ -24,9 +24,11 @@ export default function Index() {
             today
           </Text>
         </Link>
-        <Text type="title" size="xl">
-          upcoming
-        </Text>
+        <Link href="/upcoming">
+          <Text type="title" size="xl">
+            upcoming
+          </Text>
+        </Link>
       </View>
     </View>
   );

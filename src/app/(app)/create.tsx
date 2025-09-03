@@ -101,6 +101,7 @@ type DateOptionsProps = {
 
 function DateOptions({ repeat, date, setRepeat, onDateChange }: DateOptionsProps) {
   const router = useRouter();
+  const { time } = useContext(TodoContext);
 
   const openTime = () => {
     router.navigate("/time-options");
@@ -111,11 +112,17 @@ function DateOptions({ repeat, date, setRepeat, onDateChange }: DateOptionsProps
     router.navigate("/repeat-options");
   };
 
+  const getTimeLabel = () => {
+    if (!time) return "time";
+    if (time === "all-day") return "all-day";
+    return time; // Will show format like "14:00-15:00"
+  };
+
   return (
     <>
       <Calendar selectedDate={date} onDateSelect={onDateChange} />
-      <StatusButton status="none" onPress={openTime}>
-        time
+      <StatusButton status={time ? "active" : "none"} onPress={openTime}>
+        {getTimeLabel()}
       </StatusButton>
       <StatusButton status={repeat ? repeat.type : "none"} onPress={openRepeat}>
         repeat

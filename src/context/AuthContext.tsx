@@ -26,7 +26,6 @@ export const AuthContext = createContext<AuthState>({
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const { user } = db.useAuth();
-  console.log("AuthProvider - user state:", user);
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
 

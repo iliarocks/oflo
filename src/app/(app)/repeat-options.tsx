@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { ListSelect, TextInput } from "@/components/Inputs";
 import View from "@/components/View";
 import { TodoContext } from "@/context/TodoContext";
+import { EditContext } from "@/context/EditContext";
 import { Repeat } from "@/entities/Repeat";
 import { RepeatType, RepeatUnit } from "@/utilities/types";
 import { useRouter } from "expo-router";
@@ -23,13 +24,19 @@ const OPTIONS = {
 
 export default function RepeatOptions() {
   const router = useRouter();
-  const { repeat, setRepeat } = useContext(TodoContext);
+  const todoContext = useContext(TodoContext);
+  const editContext = useContext(EditContext);
+  
+  // Use EditContext if we're editing, otherwise use TodoContext
+  const isEditing = editContext.editingTodo || editContext.editingTemplate;
+  const repeat = isEditing ? editContext.repeat : todoContext.repeat;
+  const setRepeat = isEditing ? editContext.setRepeat : todoContext.setRepeat;
 
   const handlers = {
     type: (type: RepeatType | null) => setRepeat(type ? new Repeat(type) : null),
-    multiple: (multiple: string) => setRepeat(repeat.withMultiple(Number(multiple))),
-    unit: (unit: RepeatUnit) => setRepeat(repeat.withOn([0]).withUnit(unit)),
-    on: (on: number[]) => setRepeat(repeat.withOn(on)),
+    multiple: (multiple: string) => setRepeat(repeat ? repeat.withMultiple(Number(multiple)) : null),
+    unit: (unit: RepeatUnit) => setRepeat(repeat ? repeat.withOn([0]).withUnit(unit) : null),
+    on: (on: number[]) => setRepeat(repeat ? repeat.withOn(on) : null),
   };
 
   const showCalendarOptions = repeat?.type === "calendar";
