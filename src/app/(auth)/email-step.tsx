@@ -1,11 +1,10 @@
-import ScreenView from "@/components/ScreenView";
+import View from "@/components/View";
 import Text from "@/components/Text";
 import { TextButton } from "@/components/Buttons";
-import TextInput from "@/components/TextInput";
+import { TextInput } from "@/components/Inputs";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "expo-router";
 import { useContext } from "react";
-import { View } from "react-native";
 
 export default function EmailStep() {
   const context = useContext(AuthContext);
@@ -17,18 +16,14 @@ export default function EmailStep() {
   };
 
   return (
-    <ScreenView className="px-xl">
+    <View className="bg-neutral-0 px-xl" grow safe>
       <View className="flex-1 justify-center gap-lg">
         <Text>enter your email to begin</Text>
-        <TextInput
-          value={context.email}
-          onChangeText={context.setEmail}
-          autoFocus={true}
-        />
+        <TextInput value={context.email} onChangeText={context.setEmail} />
       </View>
       <View className="flex-row items-center justify-end py-lg">
         <TextButton onPress={handleSubmit}>next</TextButton>
       </View>
-    </ScreenView>
+    </View>
   );
 }

@@ -1,23 +1,35 @@
-import Footer from "@/components/Footer";
-import Link from "@/components/Link";
-import ScreenView from "@/components/ScreenView";
-import { View } from "react-native";
+import Header from "@/components/Header";
+import View from "@/components/View";
+import Text from "@/components/Text";
+import { useRouter } from "expo-router";
+import { TextButton } from "@/components/Buttons";
+import { Link } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
+
   return (
-    <ScreenView>
-      <View className="flex-auto justify-center gap-4xl px-xl">
-        <Link href="/inbox" size="xl">
-          inbox
+    <View className="bg-neutral-0" grow>
+      <Header>
+        <TextButton onPress={() => router.navigate("/settings")}>settings</TextButton>
+      </Header>
+      <View className="flex-grow items-end justify-center gap-4xl px-xl">
+        <Link href="/inbox">
+          <Text type="title" size="xl">
+            inbox
+          </Text>
         </Link>
-        <Link href="/today" size="xl">
-          today
+        <Link href="/today">
+          <Text type="title" size="xl">
+            today
+          </Text>
         </Link>
-        <Link href="/upcoming" size="xl">
-          upcoming
+        <Link href="/upcoming">
+          <Text type="title" size="xl">
+            upcoming
+          </Text>
         </Link>
       </View>
-      <Footer />
-    </ScreenView>
+    </View>
   );
 }

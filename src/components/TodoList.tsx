@@ -1,15 +1,12 @@
 import { InstaQLEntity } from "@instantdb/react";
 import { AppSchema } from "@/instant.schema";
-import DraggableFlatList, {
-  RenderItemParams,
-} from "react-native-draggable-flatlist";
+import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Todo from "@/components/Todo";
 import { db } from "@/utilities/database";
 import { generateKeyBetween } from "fractional-indexing";
-import { HAPTIC_PATTERNS } from "@/utilities/haptics";
 
-type TodoType = InstaQLEntity<AppSchema, "todos", { template: {} }>;
+type TodoType = InstaQLEntity<AppSchema, "todos">;
 
 interface TodoListProps {
   todos: TodoType[];
@@ -29,32 +26,18 @@ function generateNewPosition(data: { position: string }[], to: number) {
 }
 
 export default function TodoList({ todos }: TodoListProps) {
-  const handleDragEnd = ({
-    data,
-    from,
-    to,
-  }: {
-    data: TodoType[];
-    from: number;
-    to: number;
-  }) => {
-    HAPTIC_PATTERNS.navigate();
-
+  const handleDragEnd = ({ data, from, to }: { data: TodoType[]; from: number; to: number }) => {
     if (from === to) return;
+    console.log("data: ", data);
+    console.log("to: ", to);
 
     const newPosition = generateNewPosition(data, to);
+    console.log("new pos: ", newPosition);
     db.transact([db.tx.todos[data[to].id].update({ position: newPosition })]);
   };
 
   const renderItem = ({ item, drag, isActive }: RenderItemParams<TodoType>) => {
-    return (
-      <Todo
-        todo={item}
-        template={item.template}
-        onDrag={drag}
-        dragActive={isActive}
-      />
-    );
+    return <Todo todo={item} onDrag={drag} dragActive={isActive} />;
   };
 
   return (

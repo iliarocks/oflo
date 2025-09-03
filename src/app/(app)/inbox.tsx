@@ -1,8 +1,9 @@
-import Header from "@/components/Header";
-import ScreenView from "@/components/ScreenView";
-import TodoList from "@/components/TodoList";
+import View from "@/components/View";
+import Text from "@/components/Text";
 import { useUser } from "@/hooks/useUser";
 import { db } from "@/utilities/database";
+import Header from "@/components/Header";
+import TodoList from "@/components/TodoList";
 import _ from "lodash";
 
 export default function Inbox() {
@@ -12,24 +13,24 @@ export default function Inbox() {
     todos: {
       $: {
         where: {
-          date: "",
+          date: { $isNull: true },
           "user.id": user.id,
+          completed: false,
         },
       },
-      template: {},
     },
   } as const;
 
-  const { isLoading, data, error } = db.useQuery(query);
+  const { isLoading, error, data } = db.useQuery(query);
 
   if (isLoading || error) return null;
 
-  console.log(data);
-
   return (
-    <ScreenView>
-      <Header>inbox</Header>
+    <View className="gap-md bg-neutral-0" grow safe>
+      <Header justify="between">
+        <Text>inbox</Text>
+      </Header>
       <TodoList todos={_.orderBy(data.todos, ["position"], ["asc"])} />
-    </ScreenView>
+    </View>
   );
 }

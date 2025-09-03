@@ -11,13 +11,16 @@ const _schema = i.schema({
     }),
     todos: i.entity({
       label: i.string().indexed(),
-      date: i.string().indexed(),
-      position: i.string().indexed(),
-      repeat: i.boolean(),
+      date: i.any().optional().indexed(),
+      time: i.any().optional().indexed(),
+      completed: i.boolean(),
+      position: i.string(),
     }),
     templates: i.entity({
       label: i.string().indexed(),
-      interval: i.number(),
+      date: i.any().optional().indexed(),
+      time: i.any().optional(),
+      repeat: i.json().optional(),
     }),
   },
   links: {
@@ -27,7 +30,11 @@ const _schema = i.schema({
     },
     todoTemplate: {
       forward: { on: "todos", has: "one", label: "template" },
-      reverse: { on: "templates", has: "one", label: "todo" },
+      reverse: { on: "templates", has: "many", label: "todo" },
+    },
+    userTemplates: {
+      forward: { on: "templates", has: "one", label: "user", required: true },
+      reverse: { on: "$users", has: "many", label: "templates" },
     },
   },
 });

@@ -1,11 +1,15 @@
-import Text from "@/components/Text";
 import { ReactNode } from "react";
 import { View } from "react-native";
 
-export default function Header({ children }: { children?: ReactNode }) {
+type HeaderProps = {
+  justify?: "end" | "between";
+  children?: ReactNode;
+};
+
+export default function Header({ justify = "end", children }: HeaderProps) {
   return (
-    <View className="justify-center px-xl py-lg">
-      <Text style="primary">{children}</Text>
+    <View className={`flex-row items-center px-xl justify-${justify}`}>
+      {children}
     </View>
   );
 }

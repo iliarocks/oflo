@@ -1,5 +1,5 @@
 import "@/assets/global.css";
-import ScreenView from "@/components/ScreenView";
+import View from "@/components/View";
 import { AuthProvider } from "@/context/AuthContext";
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -9,13 +9,13 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <GestureHandlerRootView className="flex-1">
-        <ScreenView safe>
+      <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'white' }}>
+        <View className="bg-neutral-0" grow safe>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(auth)" options={options} />
             <Stack.Screen name="(app)" options={options} />
           </Stack>
-        </ScreenView>
+        </View>
       </GestureHandlerRootView>
     </AuthProvider>
   );

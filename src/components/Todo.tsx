@@ -1,75 +1,59 @@
-import { InstaQLEntity } from "@instantdb/react";
+import { InstaQLEntity } from "@instantdb/react-native";
 import { AppSchema } from "@/instant.schema";
+import View from "@/components/View";
 import Text from "@/components/Text";
-import { Pressable, View } from "react-native";
-import { HAPTIC_PATTERNS } from "@/utilities/haptics";
-import { db, id } from "@/utilities/database";
+import { Pressable } from "react-native";
+import { db } from "@/utilities/database";
 import { useRouter } from "expo-router";
-import { addDays, format, parseISO } from "date-fns";
+import { useContext } from "react";
+import { EditContext } from "@/context/EditContext";
 
-type TemplateType = InstaQLEntity<AppSchema, "templates">;
 type TodoType = InstaQLEntity<AppSchema, "todos">;
 
-interface TodoProps {
+type TodoProps = {
   todo: TodoType;
-  template: TemplateType | undefined;
   onDrag: () => void;
   dragActive: boolean;
-}
+};
 
-export default function Todo({
-  todo,
-  template,
-  onDrag,
-  dragActive,
-}: TodoProps) {
-  const baseStyles = "px-xl py-sm flex-row gap-md items-center";
-  const dragStyles = "bg-neutral-5";
-  const styles = dragActive ? [baseStyles, dragStyles].join(" ") : baseStyles;
+export default function Todo({ todo, onDrag, dragActive }: TodoProps) {
   const router = useRouter();
+  const { initializeFromTodo } = useContext(EditContext);
+  const containerStyles = dragActive 
+    ? "mx-md my-xs border border-neutral-3 rounded-md bg-neutral-5" 
+    : "mx-md my-xs border border-neutral-3 rounded-md bg-neutral-0";
 
   const handleCheck = () => {
-    HAPTIC_PATTERNS.success();
-
-    if (template) {
-      db.transact(
-        db.tx.todos[todo.id].update({
-          label: template.label,
-          date: format(
-            addDays(parseISO(todo.date), template.interval),
-            "yyyy-MM-dd",
-          ),
-        }),
-      );
-    }
-
-    if (!template) db.transact(db.tx.todos[todo.id].delete());
+    db.transact(db.tx.todos[todo.id].update({ completed: !todo.completed }));
   };
 
   const handlePress = () => {
-    HAPTIC_PATTERNS.select();
-    router.navigate({ pathname: "/edit-todo", params: { id } });
+    initializeFromTodo(todo);
+    router.navigate("/edit");
   };
 
   const handleLongPress = () => {
-    HAPTIC_PATTERNS.drag();
     onDrag();
   };
 
   return (
-    <View className={styles}>
-      <Pressable
-        onPress={handleCheck}
-        className="h-lg w-lg rounded-sm border-[2px] border-primary-0"
-      ></Pressable>
-      <Pressable
-        onPress={handlePress}
-        onLongPress={handleLongPress}
-        disabled={dragActive}
-        className="flex-grow rounded-lg"
-      >
-        <Text>{todo.label}</Text>
-      </Pressable>
+    <View className={containerStyles}>
+      <View className="px-md py-sm flex-row gap-md items-center">
+        <Pressable
+          onPress={handleCheck}
+          className="h-lg w-lg border-[2px] border-primary-0 rounded"
+        />
+        <Pressable onPress={handlePress} onLongPress={handleLongPress} className="flex-1">
+          <View className="flex-row items-center gap-sm">
+            <Text style="primary">{todo.label}</Text>
+            {todo.time && todo.time !== "all-day" && (
+              <Text style="secondary" size="sm">
+                • {todo.time}
+              </Text>
+            )}
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 }
