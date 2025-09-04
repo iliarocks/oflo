@@ -31,6 +31,12 @@
           <string>com.iliarocks.oflo</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+oflo</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
@@ -49,6 +55,8 @@
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
     </array>
+    <key>RCTRootViewBackgroundColor</key>
+    <integer>4281677881</integer>
     <key>UIAppFonts</key>
     <array>
       <string>RobotoMono_500Medium.ttf</string>

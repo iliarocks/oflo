@@ -3,7 +3,6 @@ import { COLOR } from "@/constants/color";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ReactNode } from "react";
 import { Pressable } from "react-native";
-import View from "./View";
 
 // --- Text Button ---
 
@@ -13,11 +12,11 @@ type TextButtonProps = {
 };
 
 export function TextButton({ onPress, children }: TextButtonProps) {
-  const styles = "items-center p-md bg-primary-0";
+  const styles = "items-center p-md bg-primary-50";
 
   return (
     <Pressable className={styles} onPress={onPress}>
-      <Text>{children}</Text>
+      <Text color="25">{children}</Text>
     </Pressable>
   );
 }
@@ -70,7 +69,7 @@ type StatusButtonProps = {
 export function StatusButton({ status, onPress, children }: StatusButtonProps) {
   return (
     <Pressable
-      className="flex-row items-center justify-between bg-neutral-5 p-md"
+      className="bg-neutral-5 flex-row items-center justify-between p-md"
       onPress={onPress}
     >
       <Text style="secondary">{children}</Text>

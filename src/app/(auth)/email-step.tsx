@@ -1,5 +1,5 @@
-import View from "@/components/View";
 import Text from "@/components/Text";
+import { View } from "react-native";
 import { TextButton } from "@/components/Buttons";
 import { TextInput } from "@/components/Inputs";
 import { AuthContext } from "@/context/AuthContext";
@@ -16,9 +16,9 @@ export default function EmailStep() {
   };
 
   return (
-    <View className="bg-neutral-0 px-xl" grow safe>
-      <View className="flex-1 justify-center gap-lg">
-        <Text>enter your email to begin</Text>
+    <View className="flex-1 bg-neutral-50 px-xl">
+      <View className="flex-1 justify-center gap-sm">
+        <Text color="50">enter your email to begin</Text>
         <TextInput value={context.email} onChangeText={context.setEmail} />
       </View>
       <View className="flex-row items-center justify-end py-lg">

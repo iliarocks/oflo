@@ -31,6 +31,10 @@
         "expo-font",
         {
           "fonts": [
+            "node_modules/@expo-google-fonts/ubuntu/400Regular/Ubuntu_400Regular.ttf",
+            "node_modules/@expo-google-fonts/ubuntu/500Medium/Ubuntu_500Medium.ttf",
+            "node_modules/@expo-google-fonts/ubuntu/700Bold/Ubuntu_700Bold.ttf",
+            "node_modules/@expo-google-fonts/roboto-mono/400Regular/RobotoMono_400Regular.ttf",
             "node_modules/@expo-google-fonts/roboto-mono/500Medium/RobotoMono_500Medium.ttf",
             "node_modules/@expo-google-fonts/roboto-mono/700Bold/RobotoMono_700Bold.ttf"
           ]
@@ -40,7 +44,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "0ec6069c-c068-4a8d-8053-2c8c28449c72"
+        "projectId": "056b2222-f094-4e01-8d10-3e7e9d15e1a2"
       }
     },
     "android": {

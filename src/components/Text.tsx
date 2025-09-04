@@ -1,80 +1,64 @@
 import { ReactNode } from "react";
 import { Text as DefaultText } from "react-native";
+import { FONT_SIZE } from "@/constants/font-size";
+import { FONT } from "@/constants/font";
 
-type Type = "title" | "body";
-type Style = "primary" | "secondary";
-type Size = "sm" | "md" | "lg" | "xl";
-type Decoration = "no-underline" | "underline";
+type FontFamily = "ubuntu" | "roboto-mono";
+type Size = "xs" | "sm" | "md" | "lg" | "xl";
+type Weight = "rg" | "md" | "bd";
+type Color = "0" | "25" | "50" | "75" | "100";
 
-interface TextProps {
-  type?: Type;
-  style?: Style;
+type TextProps = {
+  font?: FontFamily;
   size?: Size;
-  decoration?: Decoration;
+  weight?: Weight;
+  color?: Color;
   children?: ReactNode;
-}
+};
 
 export default function Text({
-  type = "body",
-  style = "primary",
+  font = "ubuntu",
   size = "sm",
-  decoration = "no-underline",
+  weight = "md",
+  color = "75",
   children,
 }: TextProps) {
-  const fontSize = getFontSize(type, size);
-  const color = getColor(style);
-  const font = getFont(type);
-  const lineHeight = getLineHeight(type, size);
-  const styles = [fontSize, color, font, lineHeight, decoration];
+  const fontSize = getFontSize(size);
+  const fontFamily = getFont(font, weight);
+  const fontColor = getFontColor(color);
+  const lineHeight = getLineHeight(size);
+  const styles = [fontSize, fontColor, fontFamily, lineHeight].join(" ");
 
-  return <DefaultText className={styles.join(" ")}>{children}</DefaultText>;
+  return <DefaultText className={styles}>{children}</DefaultText>;
 }
 
-function getFontSize(type: Type, size: Size) {
-  const fontSizes = {
-    title: {
-      sm: "text-title-sm",
-      md: "text-title-md",
-      lg: "text-title-lg",
-      xl: "text-title-xl",
-    },
-    body: {
-      sm: "text-body-sm",
-      md: "text-body-md",
-      lg: "text-body-lg",
-      xl: "text-body-lg",
-    },
+function getFontColor(color: Color) {
+  const fontColors = {
+    "0": "text-text-0",
+    "25": "text-text-25",
+    "50": "text-text-50",
+    "75": "text-text-75",
+    "100": "text-text-100",
   };
 
-  return fontSizes[type][size];
+  return fontColors[color];
 }
 
-function getColor(style: Style) {
-  const colors = {
-    primary: "text-text-0",
-    secondary: "text-text-5",
-  };
-
-  return colors[style];
+function getFontSize(size: Size) {
+  return FONT_SIZE[size];
 }
 
-function getFont(type: Type) {
-  const fonts = {
-    title: "font-roboto-mono-bd",
-    body: "font-roboto-mono-md",
-  };
-
-  return fonts[type];
+function getFont(font: FontFamily, weight: Weight) {
+  return FONT[`${font}-${weight}`];
 }
 
-function getLineHeight(type: Type, size: Size) {
-  if (type === "body") return "leading-base";
-
+function getLineHeight(size: Size) {
   const lineHeight = {
+    xs: "leading-xs",
     sm: "leading-base",
     md: "leading-base",
-    lg: "leading-title-lg",
-    xl: "leading-title-xl",
+    lg: "leading-base",
+    xl: "leading-xl",
   };
 
   return lineHeight[size];

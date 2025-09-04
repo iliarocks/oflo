@@ -13,12 +13,12 @@ interface TextInputProps {
   onChangeText: (text: string) => void;
 }
 
-export function TextInput({ onChangeText, value }: TextInputProps) {
+export function TextInput({ value, onChangeText }: TextInputProps) {
   return (
     <RNTextInput
       value={value}
       onChangeText={(text) => onChangeText(text)}
-      className="bg-neutral-5 p-md font-roboto-mono-md text-body-sm leading-base text-text-0 antialiased"
+      className="border border-neutral-75 bg-neutral-25 p-md font-ubuntu-rg text-body-sm leading-base text-text-75 antialiased"
     />
   );
 }
@@ -72,7 +72,7 @@ type TimeInputProps = {
 
 export function TimeInput({ label, value, onChange }: TimeInputProps) {
   return (
-    <View className="flex-row items-center justify-between bg-neutral-5 pl-md">
+    <View className="bg-neutral-5 flex-row items-center justify-between pl-md">
       <Text>{label}</Text>
       <DateTimePicker mode="time" value={value} onChange={onChange} display="inline" />
     </View>

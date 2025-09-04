@@ -1,10 +1,7 @@
 export const FONT_SIZE = {
-  "body-lg": "20px",
-  "body-md": "18px",
-  "body-sm": "16px",
-  "body-xs": "14px",
-  "title-xl": "32px",
-  "title-lg": "24px",
-  "title-md": "18px",
-  "title-sm": "16px",
+  xs: "14px",
+  sm: "16px",
+  md: "18px",
+  lg: "20px",
+  xl: "32px",
 };
