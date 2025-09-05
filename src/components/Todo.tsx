@@ -1,6 +1,6 @@
 import { InstaQLEntity } from "@instantdb/react-native";
 import { AppSchema } from "@/instant.schema";
-import View from "@/components/View";
+import { View } from "react-native";
 import Text from "@/components/Text";
 import { Pressable } from "react-native";
 import { db } from "@/utilities/database";
@@ -19,9 +19,9 @@ type TodoProps = {
 export default function Todo({ todo, onDrag, dragActive }: TodoProps) {
   const router = useRouter();
   const { initializeFromTodo } = useContext(EditContext);
-  const containerStyles = dragActive 
-    ? "mx-md my-xs border border-neutral-3 rounded-md bg-neutral-5" 
-    : "mx-md my-xs border border-neutral-3 rounded-md bg-neutral-0";
+  const containerStyles = dragActive
+    ? "mx-xl  border border-secondary-75 bg-secondary-0"
+    : "mx-xl  border border-neutral-75 bg-neutral-25";
 
   const handleCheck = () => {
     db.transact(db.tx.todos[todo.id].update({ completed: !todo.completed }));
@@ -38,20 +38,21 @@ export default function Todo({ todo, onDrag, dragActive }: TodoProps) {
 
   return (
     <View className={containerStyles}>
-      <View className="px-md py-sm flex-row gap-md items-center">
+      <View className="flex-row items-center gap-lg px-md py-sm">
+        <Pressable onPress={handleCheck} className="h-xl w-xl  border border-neutral-75" />
         <Pressable
-          onPress={handleCheck}
-          className="h-lg w-lg border-[2px] border-primary-0 rounded"
-        />
-        <Pressable onPress={handlePress} onLongPress={handleLongPress} className="flex-1">
+          onPress={handlePress}
+          onLongPress={handleLongPress}
+          className="flex-1 flex-row items-center justify-between"
+        >
           <View className="flex-row items-center gap-sm">
-            <Text style="primary">{todo.label}</Text>
-            {todo.time && todo.time !== "all-day" && (
-              <Text style="secondary" size="sm">
-                • {todo.time}
-              </Text>
-            )}
+            <Text weight="rg">{todo.label}</Text>
           </View>
+          {todo.time && todo.time !== "all-day" && (
+            <Text color="50" size="xs">
+              {todo.time}
+            </Text>
+          )}
         </Pressable>
       </View>
     </View>

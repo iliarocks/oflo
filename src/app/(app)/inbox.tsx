@@ -1,10 +1,11 @@
-import View from "@/components/View";
+import { View } from "react-native";
 import Text from "@/components/Text";
 import { useUser } from "@/hooks/useUser";
 import { db } from "@/utilities/database";
 import Header from "@/components/Header";
 import TodoList from "@/components/TodoList";
 import _ from "lodash";
+import ItemList from "@/components/ItemList";
 
 export default function Inbox() {
   const user = useUser();
@@ -17,6 +18,9 @@ export default function Inbox() {
           "user.id": user.id,
           completed: false,
         },
+        order: {
+          position: "asc",
+        },
       },
     },
   } as const;
@@ -26,11 +30,11 @@ export default function Inbox() {
   if (isLoading || error) return null;
 
   return (
-    <View className="gap-md bg-neutral-0" grow safe>
+    <View className="flex-1 gap-md bg-neutral-50">
       <Header justify="between">
         <Text>inbox</Text>
       </Header>
-      <TodoList todos={_.orderBy(data.todos, ["position"], ["asc"])} />
+      <ItemList todos={data.todos} templates={[]} user={user} />
     </View>
   );
 }

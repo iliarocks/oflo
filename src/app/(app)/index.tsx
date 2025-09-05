@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import View from "@/components/View";
+import { View } from "react-native";
 import Text from "@/components/Text";
 import { useRouter } from "expo-router";
 import { TextButton } from "@/components/Buttons";
@@ -9,23 +9,23 @@ export default function Index() {
   const router = useRouter();
 
   return (
-    <View className="bg-neutral-0" grow>
+    <View className="flex-1 bg-neutral-50">
       <Header>
         <TextButton onPress={() => router.navigate("/settings")}>settings</TextButton>
       </Header>
       <View className="flex-grow items-end justify-center gap-4xl px-xl">
         <Link href="/inbox">
-          <Text type="title" size="xl">
+          <Text font="roboto-mono" size="xl" weight="bd">
             inbox
           </Text>
         </Link>
         <Link href="/today">
-          <Text type="title" size="xl">
+          <Text font="roboto-mono" size="xl" weight="bd">
             today
           </Text>
         </Link>
         <Link href="/upcoming">
-          <Text type="title" size="xl">
+          <Text font="roboto-mono" size="xl" weight="bd">
             upcoming
           </Text>
         </Link>

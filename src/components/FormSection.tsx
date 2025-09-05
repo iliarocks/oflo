@@ -1,5 +1,5 @@
 import Text from "@/components/Text";
-import View from "@/components/View";
+import { View } from "react-native";
 import { ReactNode } from "react";
 
 type FormSectionProps = {
@@ -10,7 +10,7 @@ type FormSectionProps = {
 export default function FormSection({ title, children }: FormSectionProps) {
   return (
     <View className="gap-sm">
-      <Text style="secondary">{title}</Text>
+      <Text color="50">{title}</Text>
       {children}
     </View>
   );

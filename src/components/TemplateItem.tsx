@@ -1,8 +1,7 @@
 import { InstaQLEntity } from "@instantdb/react-native";
 import { AppSchema } from "@/instant.schema";
-import View from "@/components/View";
+import { View, Pressable } from "react-native";
 import Text from "@/components/Text";
-import { Pressable } from "react-native";
 import { db, id } from "@/utilities/database";
 import { format } from "date-fns";
 import { generateKeyBetween } from "fractional-indexing";

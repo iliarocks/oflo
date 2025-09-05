@@ -31,11 +31,11 @@ type IconButtonProps = {
 };
 
 export function IconButton({ icon, onPress }: IconButtonProps) {
-  const styles = "p-md bg-primary-0";
+  const styles = "p-md bg-primary-50";
 
   return (
     <Pressable className={styles} onPress={onPress}>
-      <MaterialIcons name={icon} size={24} color={COLOR["text-0"]} />
+      <MaterialIcons name={icon} size={24} color={COLOR["text-25"]} />
     </Pressable>
   );
 }
@@ -49,11 +49,11 @@ type ToggleButtonProps = {
 };
 
 export function ToggleButton({ isSelected, onPress, children }: ToggleButtonProps) {
-  const styles = `grow items-center p-md ${isSelected ? "bg-primary-0" : "bg-neutral-5"}`;
+  const styles = `grow items-center p-md ${isSelected ? "bg-primary-50" : "bg-neutral-25"}`;
 
   return (
     <Pressable onPress={onPress} className={styles}>
-      <Text>{children}</Text>
+      <Text color={isSelected ? "25" : "50"}>{children}</Text>
     </Pressable>
   );
 }
@@ -69,11 +69,11 @@ type StatusButtonProps = {
 export function StatusButton({ status, onPress, children }: StatusButtonProps) {
   return (
     <Pressable
-      className="bg-neutral-5 flex-row items-center justify-between p-md"
+      className="flex-row items-center justify-between border border-neutral-75 bg-neutral-25 p-md"
       onPress={onPress}
     >
-      <Text style="secondary">{children}</Text>
-      <Text>{status}</Text>
+      <Text color="50">{children}</Text>
+      <Text font="roboto-mono">{status}</Text>
     </Pressable>
   );
 }

@@ -26,40 +26,48 @@ export default function Text({
   const fontSize = getFontSize(size);
   const fontFamily = getFont(font, weight);
   const fontColor = getFontColor(color);
-  const lineHeight = getLineHeight(size);
-  const styles = [fontSize, fontColor, fontFamily, lineHeight].join(" ");
+  const styles = [fontSize, fontColor, fontFamily].join(" ");
 
   return <DefaultText className={styles}>{children}</DefaultText>;
 }
 
 function getFontColor(color: Color) {
   const fontColors = {
-    "0": "text-text-0",
-    "25": "text-text-25",
-    "50": "text-text-50",
-    "75": "text-text-75",
-    "100": "text-text-100",
+    0: "text-text-0",
+    25: "text-text-25",
+    50: "text-text-50",
+    75: "text-text-75",
+    100: "text-text-100",
   };
 
   return fontColors[color];
 }
 
-function getFontSize(size: Size) {
-  return FONT_SIZE[size];
-}
-
 function getFont(font: FontFamily, weight: Weight) {
-  return FONT[`${font}-${weight}`];
-}
-
-function getLineHeight(size: Size) {
-  const lineHeight = {
-    xs: "leading-xs",
-    sm: "leading-base",
-    md: "leading-base",
-    lg: "leading-base",
-    xl: "leading-xl",
+  const fonts = {
+    ubuntu: {
+      rg: "font-ubuntu-rg",
+      md: "font-ubuntu-md",
+      bd: "font-ubuntu-bd",
+    },
+    "roboto-mono": {
+      rg: "font-roboto-mono-rg",
+      md: "font-roboto-mono-md",
+      bd: "font-roboto-mono-bd",
+    },
   };
 
-  return lineHeight[size];
+  return fonts[font][weight];
+}
+
+function getFontSize(size: Size) {
+  const fontSizes = {
+    xs: "text-xs",
+    sm: "text-sm",
+    md: "text-md",
+    lg: "text-lg",
+    xl: "text-xl",
+  };
+
+  return fontSizes[size];
 }

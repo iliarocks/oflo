@@ -14,7 +14,7 @@ const _schema = i.schema({
       date: i.any().optional().indexed(),
       time: i.any().optional().indexed(),
       completed: i.boolean(),
-      position: i.string(),
+      position: i.string().indexed(),
     }),
     templates: i.entity({
       label: i.string().indexed(),

@@ -1,3 +1,6 @@
+import { InstaQLEntity } from "@instantdb/react-native";
+import { AppSchema } from "@/instant.schema";
+
 export type Option = {
   key: string;
   value: any;
@@ -16,3 +19,6 @@ export type RepeatData = {
   };
   reference: Date | null;
 };
+
+export type TemplateType = InstaQLEntity<AppSchema, "templates">;
+export type TodoType = InstaQLEntity<AppSchema, "todos">;

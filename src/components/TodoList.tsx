@@ -47,6 +47,7 @@ export default function TodoList({ todos }: TodoListProps) {
         onDragEnd={handleDragEnd}
         keyExtractor={(todo) => todo.id}
         renderItem={renderItem}
+        contentContainerStyle={{ gap: 8 }}
       />
     </GestureHandlerRootView>
   );

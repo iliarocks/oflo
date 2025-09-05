@@ -7,9 +7,5 @@ type HeaderProps = {
 };
 
 export default function Header({ justify = "end", children }: HeaderProps) {
-  return (
-    <View className={`flex-row items-center px-xl justify-${justify}`}>
-      {children}
-    </View>
-  );
+  return <View className={`flex-row items-center px-xl justify-${justify}`}>{children}</View>;
 }

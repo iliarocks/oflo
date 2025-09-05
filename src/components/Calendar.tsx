@@ -11,7 +11,8 @@ import {
   startOfWeek,
 } from "date-fns";
 import { useMemo, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable } from "react-native";
+import { View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 const SWIPE_THRESHOLD = 50;
@@ -21,10 +22,7 @@ interface CalendarProps {
   onDateSelect: (date: Date) => void;
 }
 
-export default function Calendar({
-  selectedDate,
-  onDateSelect,
-}: CalendarProps) {
+export default function Calendar({ selectedDate, onDateSelect }: CalendarProps) {
   const selected = selectedDate;
   const [viewDate, setViewDate] = useState<Date>(selected);
 
@@ -39,10 +37,10 @@ export default function Calendar({
     });
 
   return (
-    <View className="gap-lg bg-neutral-5 p-md">
+    <View className="gap-lg border border-neutral-75 bg-neutral-25 p-md">
       <View className="flex-row justify-between">
-        <Text style="secondary">{format(viewDate, "LLL").toLowerCase()}</Text>
-        <Text style="secondary">{format(viewDate, "yyyy")}</Text>
+        <Text color="50">{format(viewDate, "LLL").toLowerCase()}</Text>
+        <Text color="50">{format(viewDate, "yyyy")}</Text>
       </View>
       <GestureDetector gesture={swipeGesture}>
         <View className="gap-lg">
@@ -77,7 +75,7 @@ interface DayCellProps {
 function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
   const baseStyles = "aspect-square justify-center items-center h-2xl";
   const invisibleStyles = isOutside ? "opacity-30" : "";
-  const activeStyles = isSelected ? "bg-primary-0" : "";
+  const activeStyles = isSelected ? "bg-primary-50" : "";
 
   const handlePress = () => {
     onPress(date);
@@ -89,9 +87,7 @@ function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
       onPress={handlePress}
       className={[baseStyles, invisibleStyles, activeStyles].join(" ")}
     >
-      <Text style={isSelected ? "primary" : "secondary"}>
-        {format(date, "d")}
-      </Text>
+      <Text color={isSelected ? "25" : "75"}>{format(date, "d")}</Text>
     </Pressable>
   );
 }

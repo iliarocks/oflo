@@ -2,12 +2,12 @@ import { TextButton } from "@/components/Buttons";
 import FormSection from "@/components/FormSection";
 import Header from "@/components/Header";
 import { ListSelect, TextInput } from "@/components/Inputs";
-import View from "@/components/View";
+import { View } from "react-native";
 import { TodoContext } from "@/context/TodoContext";
 import { EditContext } from "@/context/EditContext";
 import { Repeat } from "@/entities/Repeat";
 import { RepeatType, RepeatUnit } from "@/utilities/types";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import _ from "lodash";
 import { useContext } from "react";
 
@@ -24,17 +24,19 @@ const OPTIONS = {
 
 export default function RepeatOptions() {
   const router = useRouter();
+  const params = useLocalSearchParams();
   const todoContext = useContext(TodoContext);
   const editContext = useContext(EditContext);
-  
-  // Use EditContext if we're editing, otherwise use TodoContext
-  const isEditing = editContext.editingTodo || editContext.editingTemplate;
-  const repeat = isEditing ? editContext.repeat : todoContext.repeat;
-  const setRepeat = isEditing ? editContext.setRepeat : todoContext.setRepeat;
+
+  // Determine which context to use based on the mode parameter
+  const isCreateMode = params.mode === 'create';
+  const repeat = isCreateMode ? todoContext.repeat : editContext.repeat;
+  const setRepeat = isCreateMode ? todoContext.setRepeat : editContext.setRepeat;
 
   const handlers = {
     type: (type: RepeatType | null) => setRepeat(type ? new Repeat(type) : null),
-    multiple: (multiple: string) => setRepeat(repeat ? repeat.withMultiple(Number(multiple)) : null),
+    multiple: (multiple: string) =>
+      setRepeat(repeat ? repeat.withMultiple(Number(multiple)) : null),
     unit: (unit: RepeatUnit) => setRepeat(repeat ? repeat.withOn([0]).withUnit(unit) : null),
     on: (on: number[]) => setRepeat(repeat ? repeat.withOn(on) : null),
   };
@@ -43,7 +45,7 @@ export default function RepeatOptions() {
   const showOnSelector = showCalendarOptions && ["week", "month"].includes(repeat.frequency.unit);
 
   return (
-    <View className="gap-md bg-neutral-0" grow safe>
+    <View className="flex- gap-md bg-neutral-50">
       <Header>
         <TextButton onPress={router.back}>done</TextButton>
       </Header>
@@ -62,6 +64,7 @@ export default function RepeatOptions() {
               <TextInput
                 value={String(repeat.frequency.multiple)}
                 onChangeText={handlers.multiple}
+                type="numeric"
               />
               <ListSelect
                 options={OPTIONS.unit}

@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import { format } from "date-fns";
-import View from "@/components/View";
+import { View } from "react-native";
 import Text from "@/components/Text";
 import { TextInput, ListSelect } from "@/components/Inputs";
 import { useRouter } from "expo-router/build/hooks";
@@ -43,7 +43,7 @@ export default function Edit() {
           label: label,
           date: date ? format(date, "yyyy-MM-dd") : null,
           time: time,
-        })
+        }),
       );
       close();
     } else if (editingTemplate) {
@@ -76,14 +76,18 @@ export default function Edit() {
         completed: false,
         position: generateKeyBetween(null, first),
       };
-      await db.transact(db.tx.todos[todoId].create(todo).link({ user: user.id, template: editingTemplate.id }));
+      await db.transact(
+        db.tx.todos[todoId].create(todo).link({ user: user.id, template: editingTemplate.id }),
+      );
     } else {
       // Update the template itself
-      const repeatData = repeat ? {
-        type: repeat.type,
-        frequency: repeat.frequency,
-        reference: repeat.reference ? format(repeat.reference, "yyyy-MM-dd") : null,
-      } : editingTemplate.repeat;
+      const repeatData = repeat
+        ? {
+            type: repeat.type,
+            frequency: repeat.frequency,
+            reference: repeat.reference ? format(repeat.reference, "yyyy-MM-dd") : null,
+          }
+        : editingTemplate.repeat;
 
       await db.transact(
         db.tx.templates[editingTemplate.id].update({
@@ -91,32 +95,28 @@ export default function Edit() {
           time: time,
           date: date ? format(date, "yyyy-MM-dd") : null,
           repeat: repeatData,
-        })
+        }),
       );
     }
     close();
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      "Delete",
-      editingTodo ? "Delete this todo?" : "Delete this template?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: async () => {
-            if (editingTodo) {
-              await db.transact(db.tx.todos[editingTodo.id].delete());
-            } else if (editingTemplate) {
-              await db.transact(db.tx.templates[editingTemplate.id].delete());
-            }
-            close();
-          },
+    Alert.alert("Delete", editingTodo ? "Delete this todo?" : "Delete this template?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          if (editingTodo) {
+            await db.transact(db.tx.todos[editingTodo.id].delete());
+          } else if (editingTemplate) {
+            await db.transact(db.tx.templates[editingTemplate.id].delete());
+          }
+          close();
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const close = () => {
@@ -127,7 +127,7 @@ export default function Edit() {
 
   const openTime = () => {
     // Time-options will now use EditContext since we have editingTodo or editingTemplate set
-    router.navigate("/time-options");
+    router.push({ pathname: "/time-options", params: { mode: "edit" } });
   };
 
   const openRepeat = () => {
@@ -138,7 +138,7 @@ export default function Edit() {
       setRepeat(new Repeat("todo"));
     }
     // Repeat-options will now use EditContext since we have editingTodo or editingTemplate set
-    router.navigate("/repeat-options");
+    router.push({ pathname: "/repeat-options", params: { mode: "edit" } });
   };
 
   const getTimeLabel = () => {
@@ -154,19 +154,17 @@ export default function Edit() {
 
   if (showTemplateOptions) {
     return (
-      <View className="justify-center items-center bg-neutral-0" grow safe>
+      <View className="flex-1 items-center justify-center bg-neutral-50">
         <View className="gap-lg px-xl">
-          <Text type="title" size="lg">Apply changes to:</Text>
+          <Text type="title" size="lg">
+            Apply changes to:
+          </Text>
           <View className="gap-md">
             <TextButton onPress={() => handleTemplateUpdate(false)}>
               Template (all future occurrences)
             </TextButton>
-            <TextButton onPress={() => handleTemplateUpdate(true)}>
-              Just this instance
-            </TextButton>
-            <TextButton onPress={() => setShowTemplateOptions(false)}>
-              Cancel
-            </TextButton>
+            <TextButton onPress={() => handleTemplateUpdate(true)}>Just this instance</TextButton>
+            <TextButton onPress={() => setShowTemplateOptions(false)}>Cancel</TextButton>
           </View>
         </View>
       </View>
@@ -174,7 +172,7 @@ export default function Edit() {
   }
 
   return (
-    <View className="justify-between bg-neutral-0" grow safe>
+    <View className="flex-1 justify-between bg-neutral-50">
       <View className="gap-md">
         <Header>
           <TextButton onPress={close}>cancel</TextButton>
@@ -243,3 +241,4 @@ function DateOptions({
     </>
   );
 }
+

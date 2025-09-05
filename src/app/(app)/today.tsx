@@ -1,12 +1,11 @@
 import Text from "@/components/Text";
-import View from "@/components/View";
+import { View } from "react-native";
 import Header from "@/components/Header";
 import { useUser } from "@/hooks/useUser";
 import { db } from "@/utilities/database";
 import { format } from "date-fns";
 import _ from "lodash";
-import TodoList from "@/components/TodoList";
-import TemplateItem from "@/components/TemplateItem";
+import UnifiedTodoList from "@/components/UnifiedTodoList";
 import { shouldShowTemplateToday, shouldShowTemplateTodoType } from "@/utilities/repeatCalculator";
 
 export default function Today() {
@@ -37,7 +36,7 @@ export default function Today() {
   const { isLoading, error, data } = db.useQuery(query);
 
   if (isLoading || error) return null;
-  
+
   const todos = _.filter(data.todos, (o) => {
     return o.date <= todayString;
   });
@@ -45,9 +44,9 @@ export default function Today() {
   // Get template IDs that already have todos for today
   const templateIdsWithTodos = new Set(
     todos
-      .filter(todo => todo.date === todayString && todo.template)
-      .map(todo => todo.template?.id)
-      .filter(Boolean)
+      .filter((todo) => todo.date === todayString && todo.template)
+      .map((todo) => todo.template?.id)
+      .filter(Boolean),
   );
 
   // Filter templates that should appear today
@@ -56,7 +55,7 @@ export default function Today() {
     if (templateIdsWithTodos.has(template.id)) {
       return false;
     }
-    
+
     if (template.repeat?.type === "calendar") {
       return shouldShowTemplateToday(template, today);
     } else if (template.repeat?.type === "todo") {
@@ -66,30 +65,15 @@ export default function Today() {
   });
 
   return (
-    <View className="gap-md bg-neutral-0" grow>
+    <View className="flex-1 gap-md bg-neutral-50">
       <Header justify="between">
         <Text>today</Text>
       </Header>
-      <View className="flex-1">
-        {/* Regular todos */}
-        <TodoList todos={todos} />
-        
-        {/* Templates section */}
-        {templatesForToday.length > 0 && (
-          <View className="mt-lg px-xl">
-            <Text style="secondary" size="sm">recurring tasks</Text>
-            <View className="gap-sm">
-              {templatesForToday.map((template) => (
-                <TemplateItem 
-                  key={template.id} 
-                  template={template}
-                  userId={user.id}
-                />
-              ))}
-            </View>
-          </View>
-        )}
-      </View>
+      <UnifiedTodoList 
+        todos={todos} 
+        templates={templatesForToday}
+        userId={user.id}
+      />
     </View>
   );
 }

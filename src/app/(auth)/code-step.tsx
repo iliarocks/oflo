@@ -1,5 +1,4 @@
-import View from "@/components/View";
-import Text from "@/components/Text";
+import { View } from "react-native";
 import { TextButton } from "@/components/Buttons";
 import { TextInput } from "@/components/Inputs";
 import { AuthContext } from "@/context/AuthContext";
@@ -11,10 +10,13 @@ export default function CodeStep() {
   const router = useRouter();
 
   return (
-    <View className="bg-neutral-0 px-xl" grow safe>
-      <View className="flex-1 justify-center gap-lg">
-        <Text>copy the code sent to your email</Text>
-        <TextInput value={context.code} onChangeText={context.setCode} />
+    <View className="flex-1 bg-neutral-50 px-xl">
+      <View className="flex-1 justify-center gap-sm">
+        <TextInput
+          value={context.code}
+          label="copy the code sent to your email"
+          onChangeText={context.setCode}
+        />
       </View>
       <View className="flex-row items-center justify-between py-lg">
         <TextButton onPress={() => router.back()}>back</TextButton>

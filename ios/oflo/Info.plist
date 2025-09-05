@@ -55,10 +55,12 @@
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
     </array>
-    <key>RCTRootViewBackgroundColor</key>
-    <integer>4281677881</integer>
     <key>UIAppFonts</key>
     <array>
+      <string>Ubuntu_400Regular.ttf</string>
+      <string>Ubuntu_500Medium.ttf</string>
+      <string>Ubuntu_700Bold.ttf</string>
+      <string>RobotoMono_400Regular.ttf</string>
       <string>RobotoMono_500Medium.ttf</string>
       <string>RobotoMono_700Bold.ttf</string>
     </array>

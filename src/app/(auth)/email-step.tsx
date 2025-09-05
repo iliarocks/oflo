@@ -18,8 +18,12 @@ export default function EmailStep() {
   return (
     <View className="flex-1 bg-neutral-50 px-xl">
       <View className="flex-1 justify-center gap-sm">
-        <Text color="50">enter your email to begin</Text>
-        <TextInput value={context.email} onChangeText={context.setEmail} />
+        <TextInput
+          value={context.email}
+          label="enter your email to begin"
+          onChangeText={context.setEmail}
+          type="email-address"
+        />
       </View>
       <View className="flex-row items-center justify-end py-lg">
         <TextButton onPress={handleSubmit}>next</TextButton>

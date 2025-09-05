@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import { format } from "date-fns";
-import View from "@/components/View";
+import { View } from "react-native";
 import Text from "@/components/Text";
 import { TextInput, ListSelect } from "@/components/Inputs";
 import { useRouter } from "expo-router/build/hooks";
@@ -15,6 +15,7 @@ import { db, id } from "@/utilities/database";
 import { useUser } from "@/hooks/useUser";
 import { generateKeyBetween } from "fractional-indexing";
 import _ from "lodash";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Create() {
   const router = useRouter();
@@ -23,39 +24,54 @@ export default function Create() {
   const user = useUser();
 
   const pushTodo = async () => {
-    const { data } = await db.queryOnce({
-      todos: {
-        $: {
-          where: {
-            user: user.id,
+    try {
+      console.log("Starting pushTodo with:", { label, date, time, repeat });
+
+      // Validate that label is not empty
+      if (!label || label.trim() === "") {
+        alert("Please enter a label for the todo");
+        return;
+      }
+
+      const { data } = await db.queryOnce({
+        todos: {
+          $: {
+            where: {
+              user: user.id,
+            },
           },
         },
-      },
-    });
+      });
 
-    const first = _.orderBy(data.todos, ["position"], ["asc"])[0]?.position ?? null;
+      const first = _.orderBy(data.todos, ["position"], ["asc"])[0]?.position ?? null;
 
-    if (!repeat) {
-      const todoId = id();
-      const todo = {
-        label: label,
-        date: date ? format(date, "yyyy-MM-dd") : date,
-        time: time,
-        completed: false,
-        position: generateKeyBetween(null, first),
-      };
-      db.transact(db.tx.todos[todoId].create(todo).link({ user: user.id }));
-    } else {
-      const templateId = id();
-      const template = {
-        label: label,
-        time: time,
-        date: date ? format(date, "yyyy-MM-dd") : date,
-        repeat: repeat,
-      };
-      await db.transact(db.tx.templates[templateId].create(template).link({ user: user.id }));
+      if (!repeat) {
+        const todoId = id();
+        const todo = {
+          label: label,
+          date: date ? format(date, "yyyy-MM-dd") : null,
+          time: time || null,
+          completed: false,
+          position: generateKeyBetween(null, first, "abcdefghijklmnopqrstuvwxyz"),
+        };
+        console.log("Creating todo:", todo);
+        await db.transact(db.tx.todos[todoId].create(todo).link({ user: user.id }));
+      } else {
+        const templateId = id();
+        const template = {
+          label: label,
+          time: time,
+          date: date ? format(date, "yyyy-MM-dd") : date,
+          repeat: repeat,
+        };
+        console.log("Creating template:", template);
+        await db.transact(db.tx.templates[templateId].create(template).link({ user: user.id }));
+      }
+      close();
+    } catch (error) {
+      console.error("Error in pushTodo:", error);
+      alert(`Error saving todo: ${error.message}`);
     }
-    close();
   };
 
   const close = () => {
@@ -69,15 +85,14 @@ export default function Create() {
   ];
 
   return (
-    <View className="justify-between bg-neutral-0" grow safe>
+    <SafeAreaView className="flex-1 justify-between bg-neutral-50">
       <View className="gap-md">
         <Header>
           <TextButton onPress={close}>cancel</TextButton>
         </Header>
         <View className="gap-lg px-xl">
           <View className="gap-sm">
-            <Text style="secondary">label</Text>
-            <TextInput value={label ?? ""} onChangeText={setLabel} />
+            <TextInput value={label ?? ""} label="label" onChangeText={setLabel} />
           </View>
           <ListSelect options={placeOptions} selected={date} onSelect={setDate} unique />
           {date && (
@@ -88,7 +103,7 @@ export default function Create() {
       <View className="px-xl">
         <TextButton onPress={pushTodo}>save</TextButton>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -103,13 +118,15 @@ function DateOptions({ repeat, date, setRepeat, onDateChange }: DateOptionsProps
   const router = useRouter();
   const { time } = useContext(TodoContext);
 
+  console.log("DateOptions - Current time value:", time);
+
   const openTime = () => {
-    router.navigate("/time-options");
+    router.push({ pathname: "/time-options", params: { mode: "create" } });
   };
 
   const openRepeat = () => {
     if (!repeat) setRepeat(new Repeat("todo"));
-    router.navigate("/repeat-options");
+    router.push({ pathname: "/repeat-options", params: { mode: "create" } });
   };
 
   const getTimeLabel = () => {

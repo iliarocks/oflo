@@ -1,25 +1,41 @@
-import View from "@/components/View";
+import { View, Modal } from "react-native";
 import { Option } from "@/utilities/types";
 import _ from "lodash";
 import { TextInput as RNTextInput } from "react-native";
-import { ToggleButton } from "./Buttons";
+import { ToggleButton, StatusButton, TextButton } from "./Buttons";
 import Text from "@/components/Text";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import { useState } from "react";
+import { format } from "date-fns";
 
 // ——— Text Input ———
 
 interface TextInputProps {
   value: string;
+  label?: string;
   onChangeText: (text: string) => void;
+  type?: "default" | "email-address" | "numeric" | "phone-pad" | "url";
 }
 
-export function TextInput({ value, onChangeText }: TextInputProps) {
-  return (
+export function TextInput({ value, label, onChangeText, type = "default" }: TextInputProps) {
+  const input = (
     <RNTextInput
       value={value}
-      onChangeText={(text) => onChangeText(text)}
-      className="border border-neutral-75 bg-neutral-25 p-md font-ubuntu-rg text-body-sm leading-base text-text-75 antialiased"
+      onChangeText={onChangeText}
+      className="border border-neutral-75 bg-neutral-25 p-md font-ubuntu-rg text-sm text-text-75 antialiased"
+      autoCapitalize="none"
+      keyboardType={type}
     />
+  );
+  if (!label) return input;
+
+  return (
+    <View className="gap-sm">
+      <Text color="50" weight="rg">
+        {label}
+      </Text>
+      {input}
+    </View>
   );
 }
 
@@ -50,7 +66,7 @@ export function ListSelect<T = any>(props: ListSelectProps) {
   };
 
   return (
-    <View className="flex-auto flex-row flex-wrap">
+    <View className="flex-auto flex-row flex-wrap border border-neutral-75">
       {options.map(({ key, value }, i) => {
         return (
           <ToggleButton key={i} isSelected={isSelected(value)} onPress={() => handlePress(value)}>
@@ -71,10 +87,25 @@ type TimeInputProps = {
 };
 
 export function TimeInput({ label, value, onChange }: TimeInputProps) {
+  const [showPicker, setShowPicker] = useState(false);
+  const formattedTime = format(value, "HH:mm");
+
   return (
-    <View className="bg-neutral-5 flex-row items-center justify-between pl-md">
-      <Text>{label}</Text>
-      <DateTimePicker mode="time" value={value} onChange={onChange} display="inline" />
-    </View>
+    <>
+      <StatusButton status={formattedTime} onPress={() => setShowPicker(!showPicker)}>
+        {label}
+      </StatusButton>
+      {showPicker && (
+        <DateTimePicker 
+          mode="time" 
+          value={value} 
+          onChange={(event, date) => {
+            setShowPicker(false);
+            if (onChange) onChange(event, date);
+          }} 
+          display="spinner" 
+        />
+      )}
+    </>
   );
 }
