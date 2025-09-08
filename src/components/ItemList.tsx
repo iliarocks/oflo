@@ -1,36 +1,33 @@
-import { TemplateType, TodoType } from "@/utilities/types";
 import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
-import { generateKeyBetween } from "fractional-indexing";
+import { generateKeyBetween } from "@/utilities/fractional";
 import _ from "lodash";
 import { db, id } from "@/utilities/database";
-import { User } from "@instantdb/react-native";
 import { format } from "date-fns";
 import Item from "@/components/Item";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
-function isTodo(item: TodoType | TemplateType) {
-  return _.has(item, "position");
-}
+import { useUser } from "@/hooks/useUser";
+import { Todo, Template, isTodo } from "@/utilities/items";
 
 function generateNewPosition(positions: string[], to: number) {
   const prev = positions[to - 1] ?? null;
   const next = positions[to + 1] ?? null;
-  return generateKeyBetween(prev, next, "abcdefghijklmnopqrstuvwxyz");
+  return generateKeyBetween(prev, next);
 }
 
 type ItemListProps = {
-  todos: TodoType[];
-  templates: TemplateType[];
-  user: User;
+  todos: Todo[];
+  templates: Template[];
 };
 
-export default function ItemList({ todos, templates, user }: ItemListProps) {
+export default function ItemList({ todos, templates }: ItemListProps) {
+  const user = useUser();
+
   const handleDragEnd = async ({
     data,
     from,
     to,
   }: {
-    data: (TodoType | TemplateType)[];
+    data: (Todo | Template)[];
     from: number;
     to: number;
   }) => {
@@ -59,15 +56,8 @@ export default function ItemList({ todos, templates, user }: ItemListProps) {
     }
   };
 
-  const renderItem = ({ item, drag, isActive }: RenderItemParams<TodoType | TemplateType>) => {
-    if (isTodo(item))
-      return (
-        <Item item={item as TodoType} isTemplate={false} isActive={isActive} handleDrag={drag} />
-      );
-
-    return (
-      <Item item={item as TemplateType} isTemplate={true} isActive={isActive} handleDrag={drag} />
-    );
+  const renderItem = ({ item, drag, isActive }: RenderItemParams<Todo | Template>) => {
+    return <Item item={item} onDrag={drag} dragActive={isActive} />;
   };
 
   return (

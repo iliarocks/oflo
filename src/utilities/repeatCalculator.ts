@@ -4,23 +4,23 @@ import { Repeat } from "@/entities/Repeat";
 export function getNextOccurrence(repeat: Repeat, fromDate: Date): Date | null {
   if (!repeat.reference) return null;
   
-  const { unit, multiple } = repeat.frequency;
+  const { unit, interval } = repeat.frequency;
   let nextDate = new Date(repeat.reference);
   
   // Find the next occurrence after fromDate
   while (isBefore(nextDate, fromDate) || isSameDay(nextDate, fromDate)) {
     switch (unit) {
       case "day":
-        nextDate = addDays(nextDate, multiple);
+        nextDate = addDays(nextDate, interval);
         break;
       case "week":
-        nextDate = addWeeks(nextDate, multiple);
+        nextDate = addWeeks(nextDate, interval);
         break;
       case "month":
-        nextDate = addMonths(nextDate, multiple);
+        nextDate = addMonths(nextDate, interval);
         break;
       case "year":
-        nextDate = addYears(nextDate, multiple);
+        nextDate = addYears(nextDate, interval);
         break;
     }
   }
@@ -34,15 +34,18 @@ export function shouldShowTemplateToday(template: any, today: Date): boolean {
   // For calendar type, we don't need a reference date
   if (template.repeat.type === "calendar") {
     const todayStart = startOfDay(today);
-    const { unit, multiple, on } = template.repeat.frequency || {};
+    const { unit, interval, on } = template.repeat.frequency || {};
     
     switch (unit) {
       case "day":
-        // Every N days - always show if no reference, or calculate from reference
-        if (!template.repeat.reference) return true;
+        // Every N days - for calendar type, show every N days
+        // If interval is 1, show every day
+        if (interval === 1) return true;
+        // For other intervals, need a reference date to calculate
+        if (!template.repeat.reference) return false;
         const referenceDate = new Date(template.repeat.reference);
         const daysDiff = Math.floor((todayStart.getTime() - startOfDay(referenceDate).getTime()) / (1000 * 60 * 60 * 24));
-        return daysDiff % multiple === 0;
+        return daysDiff % interval === 0;
         
       case "week":
         // Weekly repeats - just check if today is one of the specified days
@@ -83,7 +86,7 @@ export function shouldShowTemplateToday(template: any, today: Date): boolean {
   const referenceStart = startOfDay(repeat.reference);
   
   // Check if today is a repeat day
-  const { unit, multiple } = repeat.frequency;
+  const { unit, interval } = repeat.frequency;
   
   // If reference is in the future, don't show
   if (isAfter(referenceStart, todayStart)) return false;
@@ -93,7 +96,7 @@ export function shouldShowTemplateToday(template: any, today: Date): boolean {
   
   switch (unit) {
     case "day":
-      return daysDiff % multiple === 0;
+      return daysDiff % interval === 0;
     case "week": {
       // Check if we have specific days of week (on array)
       if (repeat.frequency.on && repeat.frequency.on.length > 0) {
@@ -102,24 +105,24 @@ export function shouldShowTemplateToday(template: any, today: Date): boolean {
         if (!repeat.frequency.on.includes(todayDayOfWeek)) {
           return false;
         }
-        // Check if we're in a valid week based on the multiple
+        // Check if we're in a valid week based on the interval
         const weeksDiff = Math.floor(daysDiff / 7);
-        return weeksDiff % multiple === 0;
+        return weeksDiff % interval === 0;
       }
       // Default weekly repeat without specific days
-      return daysDiff % (multiple * 7) === 0;
+      return daysDiff % (interval * 7) === 0;
     }
     case "month": {
       // For months, check if it's the same day of month
       const monthsDiff = (todayStart.getFullYear() - referenceStart.getFullYear()) * 12 + 
                         (todayStart.getMonth() - referenceStart.getMonth());
-      return monthsDiff % multiple === 0 && 
+      return monthsDiff % interval === 0 && 
              todayStart.getDate() === referenceStart.getDate();
     }
     case "year": {
       // For years, check if it's the same day and month
       const yearsDiff = todayStart.getFullYear() - referenceStart.getFullYear();
-      return yearsDiff % multiple === 0 && 
+      return yearsDiff % interval === 0 && 
              todayStart.getMonth() === referenceStart.getMonth() &&
              todayStart.getDate() === referenceStart.getDate();
     }
@@ -128,57 +131,30 @@ export function shouldShowTemplateToday(template: any, today: Date): boolean {
   }
 }
 
-export function shouldShowTemplateTodoType(template: any, today: Date): boolean {
-  if (!template.repeat || template.repeat.type !== "todo") return false;
-  
-  // Use template.date as the reference date, or fall back to repeat.reference
-  const referenceDate = template.date ? new Date(template.date) : 
-                        (template.repeat.reference ? new Date(template.repeat.reference) : null);
-  
-  const repeat = new Repeat(template.repeat.type, referenceDate);
-  Object.assign(repeat.frequency, template.repeat.frequency || {});
-  
-  if (!repeat.reference) return false;
-  
-  const todayStart = startOfDay(today);
-  const nextOccurrence = getNextOccurrence(repeat, todayStart);
-  
-  // For todo type, show if today is between intended repeat day and next occurrence
-  // This means the task should have been done but hasn't been completed yet
-  const previousOccurrence = getPreviousOccurrence(repeat, todayStart);
-  
-  if (!previousOccurrence) return false;
-  
-  // Show if today is on or after the previous occurrence and before the next
-  return (isSameDay(todayStart, previousOccurrence) || isAfter(todayStart, previousOccurrence)) &&
-         (!nextOccurrence || isBefore(todayStart, nextOccurrence));
-}
 
 function getPreviousOccurrence(repeat: Repeat, fromDate: Date): Date | null {
   if (!repeat.reference) return null;
   
-  const { unit, multiple } = repeat.frequency;
+  const { unit, interval } = repeat.frequency;
   let previousDate = new Date(repeat.reference);
   let lastValid = null;
   
   // Find the last occurrence before or on fromDate
   while (isBefore(previousDate, fromDate) || isSameDay(previousDate, fromDate)) {
-    if (isBefore(previousDate, fromDate) || isSameDay(previousDate, fromDate)) {
-      lastValid = new Date(previousDate);
-    }
+    lastValid = new Date(previousDate);
     
     switch (unit) {
       case "day":
-        previousDate = addDays(previousDate, multiple);
+        previousDate = addDays(previousDate, interval);
         break;
       case "week":
-        previousDate = addWeeks(previousDate, multiple);
+        previousDate = addWeeks(previousDate, interval);
         break;
       case "month":
-        previousDate = addMonths(previousDate, multiple);
+        previousDate = addMonths(previousDate, interval);
         break;
       case "year":
-        previousDate = addYears(previousDate, multiple);
+        previousDate = addYears(previousDate, interval);
         break;
     }
     

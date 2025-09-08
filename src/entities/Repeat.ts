@@ -1,19 +1,20 @@
-import { RepeatData, RepeatType, RepeatUnit } from "@/utilities/types";
+export type RepeatType = "on-complete" | "calendar";
+export type RepeatUnit = "day" | "week" | "month" | "year";
 
 export class Repeat {
   type: RepeatType;
   frequency: {
     unit: RepeatUnit;
-    multiple: number;
+    interval: number;
     on?: number[];
   };
   reference: Date | null;
 
-  constructor(type: RepeatType, reference: Date | null = null) {
+  constructor(type: RepeatType, reference: Date | null) {
     this.type = type;
     this.frequency = {
       unit: "day",
-      multiple: 1,
+      interval: 1,
       ...(type === "calendar" && { on: [0] }),
     };
     this.reference = reference;
@@ -23,26 +24,24 @@ export class Repeat {
     return this.with({ frequency: { ...this.frequency, unit } });
   }
 
-  withMultiple(multiple: number): Repeat {
-    return this.with({ frequency: { ...this.frequency, multiple } });
+  withInterval(interval: number): Repeat {
+    return this.with({ frequency: { ...this.frequency, interval } });
   }
 
   withOn(on: number[]): Repeat {
     return this.with({ frequency: { ...this.frequency, on } });
   }
 
-  with(updates: Partial<RepeatData>): Repeat {
+  with(updates: Partial<Repeat>): Repeat {
     const newRepeat = Object.create(Repeat.prototype);
     return Object.assign(newRepeat, this, updates, {
-      frequency: updates.frequency
-        ? { ...this.frequency, ...updates.frequency }
-        : this.frequency,
+      frequency: updates.frequency ? { ...this.frequency, ...updates.frequency } : this.frequency,
     });
   }
 
   toString(): string {
-    const { unit, multiple, on } = this.frequency;
-    let str = `every ${multiple} ${unit}`;
+    const { unit, interval, on } = this.frequency;
+    let str = `every ${interval} ${unit}`;
     if (on && on.length > 0) {
       str += ` on ${on.join(",")}`;
     }

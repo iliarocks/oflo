@@ -4,7 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ReactNode } from "react";
 import { Pressable } from "react-native";
 
-// --- Text Button ---
+// ——— Text Button ———
 
 type TextButtonProps = {
   onPress: () => void;
@@ -12,16 +12,14 @@ type TextButtonProps = {
 };
 
 export function TextButton({ onPress, children }: TextButtonProps) {
-  const styles = "items-center p-md bg-primary-50";
-
   return (
-    <Pressable className={styles} onPress={onPress}>
+    <Pressable className="items-center bg-primary-50 p-md" onPress={onPress}>
       <Text color="25">{children}</Text>
     </Pressable>
   );
 }
 
-// --- Icon Button ---
+// ——— Icon Button ———
 
 type Icon = "add" | "sell" | "calendar-month" | "delete";
 
@@ -31,16 +29,14 @@ type IconButtonProps = {
 };
 
 export function IconButton({ icon, onPress }: IconButtonProps) {
-  const styles = "p-md bg-primary-50";
-
   return (
-    <Pressable className={styles} onPress={onPress}>
+    <Pressable className="bg-primary-50 p-md" onPress={onPress}>
       <MaterialIcons name={icon} size={24} color={COLOR["text-25"]} />
     </Pressable>
   );
 }
 
-// --- Toggle Button ---
+// ——— Toggle Button ———
 
 type ToggleButtonProps = {
   isSelected: boolean;
@@ -49,31 +45,32 @@ type ToggleButtonProps = {
 };
 
 export function ToggleButton({ isSelected, onPress, children }: ToggleButtonProps) {
-  const styles = `grow items-center p-md ${isSelected ? "bg-primary-50" : "bg-neutral-25"}`;
-
   return (
-    <Pressable onPress={onPress} className={styles}>
+    <Pressable
+      className={` grow items-center p-md ${isSelected ? "bg-primary-50" : "bg-neutral-25"}`}
+      onPress={onPress}
+    >
       <Text color={isSelected ? "25" : "50"}>{children}</Text>
     </Pressable>
   );
 }
 
-// --- Status Button ---
+// ——— Status Button ———
 
 type StatusButtonProps = {
-  status: string;
+  label: string;
   onPress: () => void;
   children?: ReactNode;
 };
 
-export function StatusButton({ status, onPress, children }: StatusButtonProps) {
+export function StatusButton({ label, onPress, children }: StatusButtonProps) {
   return (
     <Pressable
       className="flex-row items-center justify-between border border-neutral-75 bg-neutral-25 p-md"
       onPress={onPress}
     >
-      <Text color="50">{children}</Text>
-      <Text font="roboto-mono">{status}</Text>
+      <Text color="50">{label}</Text>
+      <Text font="roboto-mono">{children}</Text>
     </Pressable>
   );
 }

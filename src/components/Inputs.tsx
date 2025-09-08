@@ -1,40 +1,45 @@
-import { View, Modal } from "react-native";
-import { Option } from "@/utilities/types";
+import { View, Modal, Pressable } from "react-native";
 import _ from "lodash";
 import { TextInput as RNTextInput } from "react-native";
-import { ToggleButton, StatusButton, TextButton } from "./Buttons";
+import { StatusButton, ToggleButton } from "./Buttons";
 import Text from "@/components/Text";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { format } from "date-fns";
 
+// ——— Types ———
+
+export type Option = {
+  key: string;
+  value: any;
+};
+
 // ——— Text Input ———
 
 interface TextInputProps {
   value: string;
-  label?: string;
   onChangeText: (text: string) => void;
+  label?: string;
   type?: "default" | "email-address" | "numeric" | "phone-pad" | "url";
 }
 
-export function TextInput({ value, label, onChangeText, type = "default" }: TextInputProps) {
-  const input = (
-    <RNTextInput
-      value={value}
-      onChangeText={onChangeText}
-      className="border border-neutral-75 bg-neutral-25 p-md font-ubuntu-rg text-sm text-text-75 antialiased"
-      autoCapitalize="none"
-      keyboardType={type}
-    />
+export function TextInput({ value, onChangeText, label, type = "default" }: TextInputProps) {
+  const labelComponent = (
+    <Text color="50" weight="rg">
+      {label}
+    </Text>
   );
-  if (!label) return input;
 
   return (
     <View className="gap-sm">
-      <Text color="50" weight="rg">
-        {label}
-      </Text>
-      {input}
+      {label && labelComponent}
+      <RNTextInput
+        value={value}
+        onChangeText={onChangeText}
+        className="border border-neutral-75 bg-neutral-25 p-md font-ubuntu-rg text-sm text-text-75 antialiased"
+        autoCapitalize="none"
+        keyboardType={type}
+      />
     </View>
   );
 }
@@ -92,18 +97,18 @@ export function TimeInput({ label, value, onChange }: TimeInputProps) {
 
   return (
     <>
-      <StatusButton status={formattedTime} onPress={() => setShowPicker(!showPicker)}>
-        {label}
+      <StatusButton label={label} onPress={() => setShowPicker(!showPicker)}>
+        {formattedTime}
       </StatusButton>
       {showPicker && (
-        <DateTimePicker 
-          mode="time" 
-          value={value} 
+        <DateTimePicker
+          mode="time"
+          value={value}
           onChange={(event, date) => {
             setShowPicker(false);
             if (onChange) onChange(event, date);
-          }} 
-          display="spinner" 
+          }}
+          display="spinner"
         />
       )}
     </>
