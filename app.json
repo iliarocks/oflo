@@ -2,6 +2,7 @@
   "expo": {
     "name": "oflo",
     "slug": "oflo",
+    "scheme": "oflo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,7 +11,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#EBECEF"
     },
     "ios": {
       "supportsTablet": true
