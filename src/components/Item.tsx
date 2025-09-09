@@ -33,17 +33,31 @@ export default function Item({ item, onDrag, dragActive }: ItemProps) {
       const { data } = await db.queryOnce({ todos: { $: { where: { user: user.id } } } });
       const first = _.minBy(data.todos, "position")?.position ?? null;
       
+      const today = format(new Date(), "yyyy-MM-dd");
+      
+      // Create the todo
       await db.transact(
         db.tx.todos[id()]
           .create({
             label: item.label,
-            date: format(new Date(), "yyyy-MM-dd"),
+            date: today,
             time: item.time,
             completed: false,
             position: generateKeyBetween(null, first),
           })
           .link({ user: user.id, template: item.id })
       );
+      
+      // Update template reference if it's on-complete type
+      if (item.repeat?.type === "on-complete") {
+        const updatedRepeat = {
+          ...item.repeat,
+          reference: today
+        };
+        await db.transact(
+          db.tx.templates[item.id].update({ repeat: updatedRepeat })
+        );
+      }
     }
   };
 

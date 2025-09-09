@@ -31,9 +31,11 @@ export default function Upcoming() {
         .filter(Boolean)
     );
     
-    // Filter templates for this date based on repeat pattern
+    // Filter templates for this date - only show calendar-type templates
     const templates = data.templates.filter(template => {
       if (templateIdsWithTodos.has(template.id)) return false;
+      // Only show calendar-type templates in upcoming, not on-complete
+      if (template.repeat?.type !== "calendar") return false;
       return shouldShowTemplateToday(template, date);
     });
     

@@ -73,7 +73,42 @@ export function shouldShowTemplateToday(template: any, today: Date): boolean {
     }
   }
   
-  // Original logic for todo type repeats (which do need reference for "last completed")
+  // For on-complete type repeats
+  if (template.repeat.type === "on-complete") {
+    // If no reference (never completed), show every day
+    if (!template.repeat.reference) return true;
+    
+    // Otherwise check based on last completion
+    const referenceDate = new Date(template.repeat.reference);
+    const repeat = new Repeat(template.repeat.type, referenceDate);
+    Object.assign(repeat.frequency, template.repeat.frequency || {});
+    
+    const todayStart = startOfDay(today);
+    const referenceStart = startOfDay(referenceDate);
+    
+    // Don't show if reference is in the future
+    if (isAfter(referenceStart, todayStart)) return false;
+    
+    // Calculate days since last completion
+    const daysDiff = Math.floor((todayStart.getTime() - referenceStart.getTime()) / (1000 * 60 * 60 * 24));
+    const { unit, interval } = repeat.frequency;
+    
+    // Check if enough time has passed based on repeat frequency
+    switch (unit) {
+      case "day":
+        return daysDiff >= interval;
+      case "week":
+        return daysDiff >= interval * 7;
+      case "month":
+        return daysDiff >= interval * 30; // Approximate
+      case "year":
+        return daysDiff >= interval * 365; // Approximate
+      default:
+        return false;
+    }
+  }
+  
+  // This shouldn't be reached but handle other cases
   const referenceDate = template.date ? new Date(template.date) : 
                         (template.repeat.reference ? new Date(template.repeat.reference) : null);
   
