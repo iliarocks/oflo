@@ -3,52 +3,17 @@
     "name": "oflo",
     "slug": "oflo",
     "version": "1.0.0",
-    "scheme": "oflo",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
-    "backgroundColor": "#353839",
-    "icon": "./src/assets/images/icon.png",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "experiments": {
-      "typedRoutes": true
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.iliarocks.oflo"
+      "supportsTablet": true
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./src/assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#353839"
-        }
-      ],
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "node_modules/@expo-google-fonts/ubuntu/400Regular/Ubuntu_400Regular.ttf",
-            "node_modules/@expo-google-fonts/ubuntu/500Medium/Ubuntu_500Medium.ttf",
-            "node_modules/@expo-google-fonts/ubuntu/700Bold/Ubuntu_700Bold.ttf",
-            "node_modules/@expo-google-fonts/roboto-mono/400Regular/RobotoMono_400Regular.ttf",
-            "node_modules/@expo-google-fonts/roboto-mono/500Medium/RobotoMono_500Medium.ttf",
-            "node_modules/@expo-google-fonts/roboto-mono/700Bold/RobotoMono_700Bold.ttf"
-          ]
-        }
-      ]
-    ],
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "056b2222-f094-4e01-8d10-3e7e9d15e1a2"
-      }
-    },
-    "android": {
-      "package": "com.iliarocks.oflo"
-    }
   }
 }
