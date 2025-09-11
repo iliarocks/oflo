@@ -1,30 +1,33 @@
 {
-  "name": "oflo",
-  "version": "1.0.0",
-  "main": "expo-router/entry",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
-  "dependencies": {
-    "expo": "~53.0.22",
-    "expo-constants": "^17.1.7",
-    "expo-linking": "^7.1.7",
-    "expo-router": "~5.1.5",
-    "expo-status-bar": "^2.2.3",
-    "react": "19.0.0",
-    "react-native": "0.79.5",
-    "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.11.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@biomejs/biome": "2.2.3",
-    "@types/react": "~19.0.10",
-    "typescript": "~5.8.3"
-  },
-  "private": true,
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+	"name": "oflo",
+	"version": "1.0.0",
+	"main": "expo-router/entry",
+	"scripts": {
+		"start": "expo start",
+		"android": "expo start --android",
+		"ios": "expo start --ios",
+		"web": "expo start --web"
+	},
+	"dependencies": {
+		"expo": "~53.0.22",
+		"expo-constants": "^17.1.7",
+		"expo-linking": "^7.1.7",
+		"expo-router": " ~5.1.6",
+		"expo-status-bar": "^2.2.3",
+		"nativewind": "^4.1.23",
+		"react": "19.0.0",
+		"react-native": "0.79.5",
+		"react-native-reanimated": "~3.17.4",
+		"react-native-safe-area-context": "5.4.0",
+		"react-native-screens": "~4.11.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.25.2",
+		"@biomejs/biome": "2.2.3",
+		"@types/react": "~19.0.10",
+		"tailwindcss": "^3.4.17",
+		"typescript": "~5.8.3"
+	},
+	"private": true,
+	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
