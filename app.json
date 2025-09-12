@@ -16,5 +16,8 @@
     "ios": {
       "supportsTablet": true
     },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
