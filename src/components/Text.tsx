@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { _Text } from "react-native";
+import { Text as _Text } from "react-native";
 
 type Size = "sm" | "md" | "lg";
 
@@ -16,5 +16,27 @@ export default function Text({
 	color = "50",
 	children,
 }: Properties) {
-	return <_Text>{children}</_Text>;
+	const colors = {
+		"0": "text-text-0",
+		"50": "text-text-50",
+		"100": "text-text-100",
+	};
+
+	const sizes = {
+		sm: "text-sm",
+		md: "text-md",
+		lg: "text-lg",
+	};
+
+	const lineHeights = {
+		sm: "leading-sm",
+		md: "leading-md",
+		lg: "leading-lg",
+	};
+
+	return (
+		<_Text className={`${colors[color]} ${sizes[size]} ${lineHeights[size]}`}>
+			{children}
+		</_Text>
+	);
 }
