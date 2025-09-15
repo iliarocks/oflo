@@ -10,18 +10,7 @@ export default function TabBar() {
 	const openCreate = () => router.navigate("/create");
 
 	return (
-		<View className="absolute bottom-0 p-xl w-full flex-row justify-between">
-			<LinearGradient
-				style={StyleSheet.absoluteFill}
-				colors={[
-					"rgba(255,255,255,1.0)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.0)",
-				]}
-				locations={[0, 0.9, 1]}
-				start={{ x: 0.5, y: 1 }}
-				end={{ x: 0.5, y: 0 }}
-			/>
+		<View className="flex-row justify-between">
 			<SegmentedControl />
 			<IconButton name="plus" onPress={openCreate} />
 		</View>
