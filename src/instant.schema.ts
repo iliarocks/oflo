@@ -1,11 +1,6 @@
-// Docs: https://www.instantdb.com/docs/modeling-data
-
 import { i } from "@instantdb/react-native";
 
 const _schema = i.schema({
-  // We inferred 5 attributes!
-  // Take a look at this schema, and if everything looks good,
-  // run `push schema` again to enforce the types.
   entities: {
     $files: i.entity({
       path: i.string().unique().indexed(),
@@ -17,15 +12,14 @@ const _schema = i.schema({
     templates: i.entity({
       date: i.string().indexed().optional(),
       label: i.string().indexed(),
-      repeat: i.json().optional(),
-      time: i.string().optional(),
+      repeat: i.json().indexed(),
+      position: i.string().indexed().unique(),
     }),
     todos: i.entity({
-      completed: i.boolean(),
+      complete: i.boolean(),
       date: i.string().indexed().optional(),
       label: i.string().indexed(),
-      position: i.string().indexed(),
-      time: i.string().indexed().optional(),
+      position: i.string().indexed().unique(),
     }),
   },
   links: {
@@ -51,7 +45,7 @@ const _schema = i.schema({
       reverse: {
         on: "templates",
         has: "many",
-        label: "todo",
+        label: "todos",
       },
     },
     todosUser: {

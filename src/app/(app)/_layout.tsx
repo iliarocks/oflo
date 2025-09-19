@@ -11,7 +11,14 @@ export default function Layout() {
 		<Stack screenOptions={{ headerShown: false }}>
 			<Stack.Screen name="(tabs)" />
 			<Stack.Screen name="create" options={{ presentation: "modal" }} />
-			<Stack.Screen name="date" options={{ presentation: "containedModal" }} />
+			<Stack.Screen
+				name="date-options"
+				options={{ presentation: "containedModal" }}
+			/>
+			<Stack.Screen
+				name="repeat-options"
+				options={{ presentation: "containedModal" }}
+			/>
 		</Stack>
 	);
 }

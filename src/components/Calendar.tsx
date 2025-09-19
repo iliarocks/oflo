@@ -22,10 +22,7 @@ interface CalendarProps {
 	onDateSelect: (date: Date) => void;
 }
 
-export default function Calendar({
-	selectedDate,
-	onDateSelect,
-}: CalendarProps) {
+export default function Calendar({ selectedDate, onDateSelect }: CalendarProps) {
 	const selected = selectedDate;
 	const [viewDate, setViewDate] = useState<Date>(selected);
 
@@ -42,7 +39,7 @@ export default function Calendar({
 	return (
 		<View className="gap-lg bg-neutral-50 rounded-xl p-md">
 			<View className="flex-row justify-between">
-				<Text color="50">{format(viewDate, "LLL").toLowerCase()}</Text>
+				<Text color="50">{format(viewDate, "MMMM").toLowerCase()}</Text>
 				<Text color="50">{format(viewDate, "yyyy")}</Text>
 			</View>
 			<GestureDetector gesture={swipeGesture}>
@@ -76,9 +73,11 @@ interface DayCellProps {
 }
 
 function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
-	const baseStyles = "rounded-full justify-center items-center size-3xl";
-	const invisibleStyles = isOutside ? "opacity-30" : "";
-	const activeStyles = isSelected ? "bg-neutral-100" : "";
+  const cellStyles = [
+    "size-2xl items-center justify-center rounded-full",
+    isOutside ? "opacity-50" : "",
+    isSelected ? "bg-neutral-100" : "",
+  ].join(" ");
 
 	const handlePress = () => {
 		onPress(date);
@@ -88,7 +87,7 @@ function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
 		<Pressable
 			disabled={isOutside}
 			onPress={handlePress}
-			className={[baseStyles, invisibleStyles, activeStyles].join(" ")}
+			className={cellStyles}
 		>
 			<Text>{format(date, "d")}</Text>
 		</Pressable>
