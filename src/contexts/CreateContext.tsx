@@ -1,5 +1,9 @@
-import { createContext, PropsWithChildren, useState } from "react";
-import Repeat from "@/entities/Repeat";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
+import type { Repeat } from "@/utilities/repeat";
+import { format } from "date-fns";
+import { db, id } from "@/utilities/instant";
+import { AuthContext } from "./AuthContext";
+import _ from "lodash";
 
 type CreateState = {
   label: string;
@@ -27,11 +31,38 @@ export function CreateProvider({ children }: PropsWithChildren) {
   const [label, setLabel] = useState<string>("");
   const [date, setDate] = useState<Date | null>(null);
   const [repeat, setRepeat] = useState<Repeat | null>(null);
+  const { user } = useContext(AuthContext);
 
-  const push = () => {
-    console.log("Label: ", label);
-    console.log("Date: ", date);
-    console.log("Repeat: ", repeat);
+  const push = async () => {
+    if (!user) return;
+
+    const { data } = await db.queryOnce({
+      todos: { $: { where: { "user.id": user.id } } },
+    });
+
+    const firstItem =
+      _.orderBy(data.todos, ["position"], ["asc"])[0]?.position ?? null;
+
+    if (repeat) {
+      const template = {
+        label,
+        repeat,
+        date: date ? format(date, "yyyy-MM-dd") : null,
+      };
+
+      await db.transact(
+        db.tx.templates[id()].create(template).link({ user: user.id }),
+      );
+    } else {
+      const todo = {
+        label,
+        date: date ? format(date, "yyyy-MM-dd") : null,
+        complete: false,
+        position: "a",
+      };
+
+      await db.transact(db.tx.todos[id()].create(todo).link({ user: user.id }));
+    }
     reset();
   };
 

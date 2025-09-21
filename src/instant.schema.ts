@@ -13,7 +13,6 @@ const _schema = i.schema({
       date: i.string().indexed().optional(),
       label: i.string().indexed(),
       repeat: i.json().indexed(),
-      position: i.string().indexed().unique(),
     }),
     todos: i.entity({
       complete: i.boolean(),

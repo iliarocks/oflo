@@ -1,18 +1,14 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "react-native";
 import Button from "@/components/Button";
 import Calendar from "@/components/Calendar";
-import { useRouter } from "expo-router";
-import { useContext, useEffect } from "react";
 import { CreateContext } from "@/contexts/CreateContext";
+import { useRouter } from "expo-router";
+import { useContext } from "react";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function DateOptions() {
   const { date, setDate } = useContext(CreateContext);
   const router = useRouter();
-
-  useEffect(() => {
-    if (!date) setDate(new Date());
-  }, [date]);
 
   if (!date) return;
 

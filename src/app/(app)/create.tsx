@@ -1,14 +1,15 @@
 import Button from "@/components/Button";
 import TextInput from "@/components/TextInput";
 import { CreateContext } from "@/contexts/CreateContext";
-import { format } from "date-fns";
+import { DEFAULT_REPEAT, repeatToString } from "@/utilities/repeat";
+import { format, startOfToday } from "date-fns";
 import { useRouter } from "expo-router";
 import { useContext } from "react";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Create() {
-  const { label, date, repeat, setLabel, reset, push } =
+  const { label, date, repeat, setLabel, setDate, setRepeat, reset, push } =
     useContext(CreateContext);
   const router = useRouter();
 
@@ -22,8 +23,14 @@ export default function Create() {
     push();
   };
 
-  const openDate = () => router.navigate("/date-options");
-  const openRepeat = () => router.navigate("/repeat-options");
+  const openDate = () => {
+    if (!date) setDate(startOfToday());
+    router.navigate("/date-options");
+  };
+  const openRepeat = () => {
+    if (!repeat) setRepeat(DEFAULT_REPEAT);
+    router.navigate("/repeat-options");
+  };
 
   return (
     <SafeAreaView className="bg-neutral-0 grow px-lg">
@@ -47,7 +54,7 @@ export default function Create() {
               icon="arrow.trianglehead.2.clockwise.rotate.90"
               onPress={openRepeat}
             >
-              {repeat ? repeat.toString() : "no repeat"}
+              {repeat ? repeatToString(repeat) : "no repeat"}
             </Button>
           </View>
         </ScrollView>
