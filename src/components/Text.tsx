@@ -3,7 +3,7 @@ import { Text as _Text } from "react-native";
 
 export type Size = "sm" | "md" | "lg";
 
-export type Color = "0" | "50" | "100";
+export type Color = "0" | "50" | "100" | "red";
 
 type Properties = {
 	size?: Size;
@@ -13,13 +13,14 @@ type Properties = {
 
 export default function Text({
 	size = "sm",
-	color = "50",
+	color = "0",
 	children,
 }: Properties) {
 	const colors = {
 		"0": "text-text-0",
 		"50": "text-text-50",
 		"100": "text-text-100",
+		red: "text-red",
 	};
 
 	const sizes = {
@@ -35,7 +36,9 @@ export default function Text({
 	};
 
 	return (
-		<_Text className={`${colors[color]} ${sizes[size]} ${lineHeights[size]}`}>
+		<_Text
+			className={`${colors[color]} ${sizes[size]} ${lineHeights[size]} font-medium`}
+		>
 			{children}
 		</_Text>
 	);
