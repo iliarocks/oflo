@@ -1,10 +1,10 @@
 const COLOR = {
-	"neutral-0": "#FFFFFF",
-	"neutral-50": "#F7F7F7",
-	"neutral-100": "#EBEBEB",
-	"text-0": "#FFFFFF",
-	"text-50": "#808080",
-	"text-100": "#333333",
+	"neutral-0": "#2c2c2c",
+	"neutral-50": "#202020",
+	"neutral-100": "#191919",
+	"text-0": "#d5d5d5",
+	"text-50": "#797979",
+	"text-100": "#6c6c6c",
 };
 
 export default COLOR;
