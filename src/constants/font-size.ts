@@ -1,7 +1,7 @@
 const FONT_SIZE = {
-	sm: "14px",
-	md: "16px",
-	lg: "18px",
+	sm: "16px",
+	md: "18px",
+	lg: "20px",
 };
 
 export default FONT_SIZE;
