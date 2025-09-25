@@ -3,24 +3,27 @@ import { Text as _Text } from "react-native";
 
 export type Size = "sm" | "md" | "lg";
 
-export type Color = "0" | "50" | "100" | "red";
+export type Color = "0" | "50" | "100";
+
+export type Weight = "nm" | "md";
 
 type Properties = {
 	size?: Size;
 	color?: Color;
+	weight?: Weight;
 	children?: ReactNode;
 };
 
 export default function Text({
 	size = "sm",
 	color = "0",
+	weight = "nm",
 	children,
 }: Properties) {
 	const colors = {
 		"0": "text-text-0",
 		"50": "text-text-50",
 		"100": "text-text-100",
-		red: "text-red",
 	};
 
 	const sizes = {
@@ -35,9 +38,14 @@ export default function Text({
 		lg: "leading-lg",
 	};
 
+	const weights = {
+		nm: "font-normal",
+		md: "font-medium",
+	};
+
 	return (
 		<_Text
-			className={`${colors[color]} ${sizes[size]} ${lineHeights[size]} font-medium`}
+			className={`${colors[color]} ${sizes[size]} ${lineHeights[size]} ${weights[weight]}`}
 		>
 			{children}
 		</_Text>
