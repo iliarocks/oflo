@@ -5,6 +5,7 @@ const COLOR = {
 	"text-0": "#d5d5d5",
 	"text-50": "#797979",
 	"text-100": "#6c6c6c",
+	"blue-50": "#007aff",
 };
 
 export default COLOR;

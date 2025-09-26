@@ -1,10 +1,11 @@
-import Text from "@/components/Text";
-import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "@/components/Header";
+import { View } from "react-native";
 
 export default function Index() {
 	return (
-		<SafeAreaView className="bg-neutral-0 grow">
-			<Text>Index</Text>
-		</SafeAreaView>
+		<>
+			<Header page="today" />
+			<View className="bg-neutral-100 grow"></View>
+		</>
 	);
 }

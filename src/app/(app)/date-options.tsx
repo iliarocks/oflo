@@ -4,32 +4,33 @@ import { CreateContext } from "@/contexts/CreateContext";
 import { useRouter } from "expo-router";
 import { useContext } from "react";
 import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function DateOptions() {
-  const { date, setDate } = useContext(CreateContext);
-  const router = useRouter();
+	const { date, setDate, resetDate } = useContext(CreateContext);
+	const router = useRouter();
 
-  if (!date) return;
+	if (!date) return;
 
-  const clear = () => {
-    setDate(null);
-    router.back();
-  };
+	const clear = () => {
+		resetDate();
+		router.back();
+	};
 
-  const confirm = () => {
-    router.dismiss();
-  };
+	const confirm = () => {
+		router.dismiss();
+	};
 
-  return (
-    <SafeAreaView className="bg-neutral-0 grow px-lg">
-      <View className="flex-row justify-between pb-md pt-lg">
-        <Button icon="arrow.trianglehead.counterclockwise" onPress={clear} />
-        <Button icon="checkmark" onPress={confirm} />
-      </View>
-      <View className="py-md">
-        <Calendar selectedDate={date!} onDateSelect={setDate} />
-      </View>
-    </SafeAreaView>
-  );
+	return (
+		<View className="bg-neutral-100 py-safe px-lg gap-lg grow">
+			<View className="flex-row justify-between pt-lg">
+				<Button
+					icon="arrow.trianglehead.counterclockwise"
+					onPress={clear}
+					variant="tertiary"
+				/>
+				<Button icon="checkmark" onPress={confirm} variant="tertiary" />
+			</View>
+			<Calendar selectedDate={date!} onDateSelect={setDate} />
+		</View>
+	);
 }

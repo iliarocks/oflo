@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import TabBar from "@/components/TabBar";
 import { Tabs } from "expo-router";
 
@@ -12,9 +11,7 @@ export default function TabLayout() {
 				<Tabs.Screen name="inbox" />
 				<Tabs.Screen name="upcoming" />
 			</Tabs>
-			<Footer>
-				<TabBar />
-			</Footer>
+			<TabBar />
 		</>
 	);
 }

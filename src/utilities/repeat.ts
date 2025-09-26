@@ -1,102 +1,99 @@
 // ————————————————
 // ———— TYPES —————
 
-export type RepeatType = "relative" | "calendar";
+export type RepeatVariant = "relative" | "calendar";
 export type RepeatUnit = "day" | "week" | "month" | "year";
 export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type Repeat =
-  | { type: "relative"; unit: RepeatUnit; interval: number }
-  | { type: "calendar"; unit: Exclude<RepeatUnit, "week">; interval: number }
-  | { type: "calendar"; unit: "week"; interval: number; on: WeekDayIndex[] };
+	| { variant: "relative"; unit: RepeatUnit; interval: number }
+	| { variant: "calendar"; unit: Exclude<RepeatUnit, "week">; interval: number }
+	| { variant: "calendar"; unit: "week"; interval: number; on: WeekDayIndex[] };
 
 // ——————————————————
 // ———— CONSTANTS ————
 
-export const DEFAULT_REPEAT: Repeat = {
-  type: "relative",
-  unit: "day",
-  interval: 1,
-};
-
 export const DEFAULT_ON: WeekDayIndex[] = [0];
 
 export const WEEKDAYS: Record<WeekDayIndex, string> = {
-  0: "sunday",
-  1: "monday",
-  2: "tuesday",
-  3: "wednesday",
-  4: "thursday",
-  5: "friday",
-  6: "saturday",
+	0: "sunday",
+	1: "monday",
+	2: "tuesday",
+	3: "wednesday",
+	4: "thursday",
+	5: "friday",
+	6: "saturday",
 };
 
 // —————————————————
 // ———— GETTERS ————
 
-export function getNextType(repeat: Repeat) {
-  return repeat.type === "calendar" ? "relative" : "calendar";
+export function getNextRepeatVariant(variant: RepeatVariant) {
+	return variant === "calendar" ? "relative" : "calendar";
 }
 
-export function getNextUnit(repeat: Repeat) {
-  const units: RepeatUnit[] = ["day", "week", "month", "year"];
+export function getNextRepeatUnit(unit: RepeatUnit) {
+	const units: RepeatUnit[] = ["day", "week", "month", "year"];
 
-  return units[(units.indexOf(repeat.unit) + 1) % units.length];
+	return units[(units.indexOf(unit) + 1) % units.length];
 }
 
 export function getNextOn(
-  repeat: Extract<Repeat, { type: "calendar"; unit: "week" }>,
-  last: WeekDayIndex,
+	repeat: Extract<Repeat, { type: "calendar"; unit: "week" }>,
+	last: WeekDayIndex,
 ) {
-  const { on } = repeat;
-  const indices: WeekDayIndex[] = [0, 1, 2, 3, 4, 5, 6];
-  const availableIndices = indices.filter((i) => !on.includes(i));
+	const { on } = repeat;
+	const indices: WeekDayIndex[] = [0, 1, 2, 3, 4, 5, 6];
+	const availableIndices = indices.filter((i) => !on.includes(i));
 
-  return availableIndices.find((d) => d > last) ?? availableIndices[0];
+	return availableIndices.find((d) => d > last) ?? availableIndices[0];
 }
 
 // —————————————————
 // ———— SETTERS ————
 
-export function setType(repeat: Repeat, type: RepeatType): Repeat {
-  const { unit, interval } = repeat;
+export function repeatWithVariant(
+	repeat: Repeat,
+	variant: RepeatVariant,
+): Repeat {
+	const { unit, interval } = repeat;
 
-  if (unit === "week" && type === "calendar") {
-    const on = "on" in repeat ? repeat.on : DEFAULT_ON;
-    return { type, unit, interval, on };
-  }
+	if (unit === "week" && variant === "calendar") {
+		const on = "on" in repeat ? repeat.on : DEFAULT_ON;
+		return { variant, unit, interval, on };
+	}
 
-  return { type, unit, interval } as Repeat;
+	return { variant, unit, interval } as Repeat;
 }
 
-export function setUnit(repeat: Repeat, unit: RepeatUnit): Repeat {
-  const { type, interval } = repeat;
+export function repeatWithUnit(repeat: Repeat, unit: RepeatUnit): Repeat {
+	const { variant, interval } = repeat;
 
-  if (unit === "week" && type === "calendar") {
-    return { type, unit, interval, on: DEFAULT_ON };
-  }
+	if (unit === "week" && variant === "calendar") {
+		return { variant, unit, interval, on: DEFAULT_ON };
+	}
 
-  return { type, unit, interval } as Repeat;
+	return { variant, unit, interval } as Repeat;
 }
 
-export function setInterval(repeat: Repeat, interval: number): Repeat {
-  return { ...repeat, interval };
+export function repeatWithInterval(repeat: Repeat, interval: number): Repeat {
+	return { ...repeat, interval };
 }
 
-export function setOn(repeat: Repeat, on: WeekDayIndex[]): Repeat {
-  const { type, unit } = repeat;
-  if (unit === "week" && type === "calendar") return { ...repeat, on };
+export function repeatWithOn(repeat: Repeat, on: WeekDayIndex[]): Repeat {
+	const { variant, unit } = repeat;
+	if (unit === "week" && variant === "calendar") return { ...repeat, on };
 
-  return repeat;
+	return repeat;
 }
 
 // —————————————————
 // ———— HELPERS ————
 
-export function repeatToString(repeat: Repeat) {
-  const { unit, interval } = repeat;
-  const plural = interval > 1;
-  const base = `every ${plural ? interval : ""} ${unit}${plural ? "s" : ""}`;
+export function repeatToString(repeat: Repeat): string {
+	const { unit, interval } = repeat;
+	const plural = interval > 1;
+	const base = `every ${plural ? interval + " " : ""}${unit}${plural ? "s" : ""}`;
 
-  return base;
+	return base;
 }

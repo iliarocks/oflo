@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 import { Text as _Text } from "react-native";
 
-export type Size = "sm" | "md" | "lg";
+export type TextSize = "sm" | "md" | "lg";
 
-export type Color = "0" | "50" | "100";
+export type TextColor = "0" | "50" | "100";
 
-export type Weight = "nm" | "md";
+export type TextWeight = "nm" | "md";
 
 type Properties = {
-	size?: Size;
-	color?: Color;
-	weight?: Weight;
+	size?: TextSize;
+	color?: TextColor;
+	weight?: TextWeight;
 	children?: ReactNode;
 };
 

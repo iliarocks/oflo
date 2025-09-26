@@ -2,28 +2,61 @@ import COLOR from "@/constants/color";
 import Text from "@/components/Text";
 import { SFSymbol, SymbolView } from "expo-symbols";
 import { ReactNode } from "react";
-import { View, Pressable } from "react-native";
+import { Pressable } from "react-native";
+
+export type ButtonVariant = "primary" | "secondary" | "tertiary";
 
 type Properties = {
+	variant?: ButtonVariant;
 	icon?: SFSymbol;
 	children?: ReactNode;
-	active?: boolean;
-	onPress: () => void;
+	onPress?: () => void;
 };
 
-export default function Button({ icon, children, active, onPress }: Properties) {
-	const pressableStyles = [
-		"h-2xl flex-row gap-xs items-center justify-center rounded-full",
-		active ? "bg-neutral-100" : "active:bg-neutral-100",
-		children ? "px-md" : "w-2xl",
-	].join(" ");
+export default function Button({
+	variant = "secondary",
+	icon,
+	children,
+	onPress = () => {},
+}: Properties) {
+	const commonContainerStyles =
+		"py-xs flex-row gap-sm justify-center items-center active:opacity-70";
+
+	const styles = {
+		primary: {
+			container: "bg-blue-50 px-md rounded-full",
+			text: { color: "0" },
+			icon: { tintColor: COLOR["text-0"] },
+		},
+		secondary: {
+			container: "bg-neutral-50 px-md rounded-md",
+			text: { color: "0" },
+			icon: { tintColor: COLOR["text-0"] },
+		},
+		tertiary: {
+			container: "px-xs",
+			text: { color: "50" },
+			icon: { tintColor: COLOR["text-50"] },
+		},
+	};
 
 	return (
-		<View className="h-3xl p-2xs bg-neutral-50 rounded-full">
-			<Pressable onPress={onPress} className={pressableStyles}>
-				{icon && <SymbolView name={icon} tintColor={COLOR["text-50"]} size={17} />}
-				{children && <Text>{children}</Text>}
-			</Pressable>
-		</View>
+		<Pressable
+			onPress={onPress}
+			className={`${commonContainerStyles} ${styles[variant].container}`}
+		>
+			{icon && (
+				<SymbolView
+					name={icon}
+					tintColor={styles[variant].icon.tintColor}
+					size={children ? 14 : 20}
+				/>
+			)}
+			{children && (
+				<Text size="md" color={styles[variant].text.color}>
+					{children}
+				</Text>
+			)}
+		</Pressable>
 	);
 }

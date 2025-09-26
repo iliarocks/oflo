@@ -22,7 +22,10 @@ interface CalendarProps {
 	onDateSelect: (date: Date) => void;
 }
 
-export default function Calendar({ selectedDate, onDateSelect }: CalendarProps) {
+export default function Calendar({
+	selectedDate,
+	onDateSelect,
+}: CalendarProps) {
 	const selected = selectedDate;
 	const [viewDate, setViewDate] = useState<Date>(selected);
 
@@ -37,7 +40,7 @@ export default function Calendar({ selectedDate, onDateSelect }: CalendarProps) 
 		});
 
 	return (
-		<View className="gap-lg bg-neutral-50 rounded-xl p-md">
+		<View className="gap-lg bg-neutral-50 rounded-md p-md">
 			<View className="flex-row justify-between">
 				<Text color="50">{format(viewDate, "MMMM").toLowerCase()}</Text>
 				<Text color="50">{format(viewDate, "yyyy")}</Text>
@@ -73,11 +76,11 @@ interface DayCellProps {
 }
 
 function DayCell({ date, isOutside, isSelected, onPress }: DayCellProps) {
-  const cellStyles = [
-    "size-2xl items-center justify-center rounded-full",
-    isOutside ? "opacity-50" : "",
-    isSelected ? "bg-neutral-100" : "",
-  ].join(" ");
+	const cellStyles = [
+		"size-2xl items-center justify-center rounded-full",
+		isOutside ? "opacity-50" : "",
+		isSelected ? "bg-blue-50" : "",
+	].join(" ");
 
 	const handlePress = () => {
 		onPress(date);
